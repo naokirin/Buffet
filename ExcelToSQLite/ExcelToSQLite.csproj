@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{BA532401-E0B1-48C9-AA8F-E355B8CC569E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ExcelToSQLite</RootNamespace>
+    <AssemblyName>ExcelToSQLite</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML">
+      <HintPath>..\packages\ClosedXML.0.73.0\lib\net40-client\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseSchema\TreasureBox.cs" />
+    <Compile Include="DatabaseSchema\Item.cs" />
+    <Compile Include="Database\Attributes\TableAttribute.cs" />
+    <Compile Include="Database\Attributes\IndexAttribute.cs" />
+    <Compile Include="Database\Attributes\ColumnAttribute.cs" />
+    <Compile Include="Database\Attributes\PrimaryKey.cs" />
+    <Compile Include="Database\Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Database\Attributes\IndexedAttribute.cs" />
+    <Compile Include="Database\Attributes\UniqueAttribute.cs" />
+    <Compile Include="Database\Attributes\NotNullAttribute.cs" />
+    <Compile Include="Database\Attributes\ForeignKeyAttribute.cs" />
+    <Compile Include="Database\Query\CreateTable.cs" />
+    <Compile Include="Database\Data\Column.cs" />
+    <Compile Include="Database\TypeTranslation.cs" />
+    <Compile Include="Database\Query\ParameterizedQuery.cs" />
+    <Compile Include="Database\SqliteConnectionProvider.cs" />
+    <Compile Include="Database\Data\ForeignKey.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="app.config" />
+    <None Include="lisence.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DatabaseSchema\" />
+    <Folder Include="Database\" />
+    <Folder Include="Database\Attributes\" />
+    <Folder Include="Database\Data\" />
+    <Folder Include="Database\Query\" />
+  </ItemGroup>
+</Project>

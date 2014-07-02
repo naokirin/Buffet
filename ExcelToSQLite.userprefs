@@ -1,0 +1,35 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ExcelToSQLite/Database/Query/CreateTable.cs">
+    <Files>
+      <File FileName="ExcelToSQLite/Program.cs" Line="17" Column="34" />
+      <File FileName="ExcelToSQLite/DatabaseSchema/Item.cs" Line="7" Column="32" />
+      <File FileName="ExcelToSQLite/DatabaseSchema/TreasureBox.cs" Line="22" Column="15" />
+      <File FileName="ExcelToSQLite/Database/SqliteConnectionProvider.cs" Line="33" Column="15" />
+      <File FileName="ExcelToSQLite/Database/Query/CreateTable.cs" Line="73" Column="26" />
+      <File FileName="ExcelToSQLite/Database/Data/Column.cs" Line="31" Column="5" />
+      <File FileName="ExcelToSQLite/Database/TypeTranslation.cs" Line="7" Column="21" />
+      <File FileName="ExcelToSQLite/Database/Query/ParameterizedQuery.cs" Line="20" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.ExcelToSQLite>
+    <MonoDevelop.Ide.CustomExecutionModes>
+      <Data Name="Mono Soft Debugger (カスタム)" Id="5c17f1c7-cee6-4e96-ac88-464afb2e436d" ModeId="Mono Soft Debugger">
+        <CommandData>
+          <Item Key="MonoDevelop.Ide.Execution.CustomArgsCustomizer">
+            <Value ctype="CustomArgsExecutionModeData">
+              <EnvironmentVariables />
+            </Value>
+          </Item>
+          <Item Key="MonoDevelop.Ide.Execution.MonoExecutionCustomizer">
+            <Value ctype="MonoExecutionParameters" />
+          </Item>
+        </CommandData>
+      </Data>
+    </MonoDevelop.Ide.CustomExecutionModes>
+  </MonoDevelop.Ide.ItemProperties.ExcelToSQLite>
+</Properties>
