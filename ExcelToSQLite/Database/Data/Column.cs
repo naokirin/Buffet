@@ -21,6 +21,7 @@ public class Column
 		var notNullAttr = (NotNullAttribute)prop.GetCustomAttributes(typeof(NotNullAttribute), true).FirstOrDefault();
 		IsNullable = notNullAttr == null;
 
+		SpecifiedPrimaryKey = new SpecifiedPrimaryKey();
 		var primaryKeyAttr = (PrimaryKeyAttribute)prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).FirstOrDefault();
 		SpecifiedPrimaryKey.IsPrimaryKey = primaryKeyAttr != null;
 		if(SpecifiedPrimaryKey.IsPrimaryKey)

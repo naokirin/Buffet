@@ -51,7 +51,6 @@
     <Compile Include="Database\Attributes\TableAttribute.cs" />
     <Compile Include="Database\Attributes\IndexAttribute.cs" />
     <Compile Include="Database\Attributes\ColumnAttribute.cs" />
-    <Compile Include="Database\Attributes\PrimaryKey.cs" />
     <Compile Include="Database\Attributes\IgnoreAttribute.cs" />
     <Compile Include="Database\Attributes\IndexedAttribute.cs" />
     <Compile Include="Database\Attributes\UniqueAttribute.cs" />
@@ -64,6 +63,7 @@
     <Compile Include="Database\SqliteConnectionProvider.cs" />
     <Compile Include="Database\Data\ForeignKey.cs" />
     <Compile Include="Database\Data\PrimaryKey.cs" />
+    <Compile Include="Database\Attributes\PrimaryKeyAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

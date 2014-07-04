@@ -1,20 +1,33 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ExcelToSQLite/Database/Query/CreateTable.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ExcelToSQLiteTest/CreateTableTest.cs">
     <Files>
-      <File FileName="ExcelToSQLite/Program.cs" Line="8" Column="14" />
-      <File FileName="ExcelToSQLite/DatabaseSchema/TreasureBox.cs" Line="1" Column="1" />
-      <File FileName="ExcelToSQLite/DatabaseSchema/Item.cs" Line="3" Column="10" />
-      <File FileName="ExcelToSQLite/Database/Query/CreateTable.cs" Line="121" Column="18" />
-      <File FileName="ExcelToSQLite/Database/Data/Column.cs" Line="13" Column="48" />
+      <File FileName="ExcelToSQLite/Program.cs" Line="22" Column="4" />
+      <File FileName="ExcelToSQLite/Database/Data/Column.cs" Line="25" Column="1" />
       <File FileName="ExcelToSQLite/Database/TypeTranslation.cs" Line="7" Column="42" />
       <File FileName="ExcelToSQLite/Database/Query/ParameterizedQuery.cs" Line="7" Column="39" />
+      <File FileName="ExcelToSQLite/Database/Data/ForeignKey.cs" Line="36" Column="1" />
+      <File FileName="ExcelToSQLite/Database/Query/CreateTable.cs" Line="66" Column="37" />
+      <File FileName="ExcelToSQLiteTest/CreateTableTest.cs" Line="22" Column="4" />
+      <File FileName="ExcelToSQLite/Database/SqliteConnectionProvider.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True">
+          <Node name="ExcelToSQLiteTest" expanded="True">
+            <Node name="CreateTableTest" expanded="True">
+              <Node name="TestCreateOnylPrimaryKeyTable" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="naokirin" Email="" Copyright="naokirin" Company="" Trademark="" />
   <MonoDevelop.Ide.ItemProperties.ExcelToSQLite>
     <MonoDevelop.Ide.CustomExecutionModes>
       <Data Name="Mono Soft Debugger (カスタム)" Id="5c17f1c7-cee6-4e96-ac88-464afb2e436d" ModeId="Mono Soft Debugger">

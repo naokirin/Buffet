@@ -63,7 +63,7 @@ public class CreateTable
 			}
 		}
 
-		return "CREATE TABLE " + TableName + " " + System.Environment.NewLine + GetColumnsQueryString(columns) + ";";
+		return "CREATE TABLE IF NOT EXISTS " + TableName + " " + System.Environment.NewLine + GetColumnsQueryString(columns) + ";";
 	}
 
 	private string GetColumnsQueryString(List<Column> columns)

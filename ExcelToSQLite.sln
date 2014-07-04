@@ -3,18 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToSQLite", "ExcelToSQLite\ExcelToSQLite.csproj", "{BA532401-E0B1-48C9-AA8F-E355B8CC569E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToSQLiteTest", "ExcelToSQLiteTest\ExcelToSQLiteTest.csproj", "{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.Build.0 = Debug|Any CPU
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Release|x86.Build.0 = Release|Any CPU
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Debug|x86.ActiveCfg = Debug|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Debug|x86.Build.0 = Debug|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.ActiveCfg = Release|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = ExcelToSQLite\ExcelToSQLite.csproj
+		StartupItems = $0
+		$0.Item = ExcelToSQLite\ExcelToSQLite.csproj
+		$0.Item = ExcelToSQLiteTest\ExcelToSQLiteTest.csproj
 	EndGlobalSection
 EndGlobal

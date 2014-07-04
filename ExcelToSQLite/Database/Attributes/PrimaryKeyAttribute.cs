@@ -1,7 +1,7 @@
 ﻿using System;
 
 [AttributeUsage(AttributeTargets.Property)]
-class PrimaryKeyAttribute : Attribute
+public class PrimaryKeyAttribute : Attribute
 {
 	private bool isAutoIncrement = false;
 	public bool IsAutoIncrement
