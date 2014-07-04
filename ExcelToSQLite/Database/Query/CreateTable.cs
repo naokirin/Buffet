@@ -77,8 +77,9 @@ public class CreateTable
 			column.Name + " "
 				+ TypeTranslation.TranslateDBType(column.ColumnType)
 				+ (column.IsNullable ? "" : " NOT NULL")
-				+ (column.IsPrimaryKey && columns.Where(x => x.IsPrimaryKey).Count() == 1 ? " PRIMARY KEY" : "")
-				+ (column.IsAutoIncrement ? " AUTOINCREMENT" : "")
+				+ (column.SpecifiedPrimaryKey.IsPrimaryKey
+					&& columns.Where(x => x.SpecifiedPrimaryKey.IsPrimaryKey).Count() == 1 ? " PRIMARY KEY" : "")
+				+ (column.SpecifiedPrimaryKey.IsAutoIncrement ? " AUTOINCREMENT" : "")
 				+ System.Environment.NewLine;
 		});
 
@@ -93,7 +94,7 @@ public class CreateTable
 	private string GetPrimaryKeyQueryString(List<Column> columns)
 	{
 		var columnQuery = "";
-		var primaryKeyColumns = columns.Where(column => column.IsPrimaryKey).ToList();
+		var primaryKeyColumns = columns.Where(column => column.SpecifiedPrimaryKey.IsPrimaryKey).ToList();
 		if (primaryKeyColumns.Count <= 1) return "";
 		if (primaryKeyColumns.Any())
 		{

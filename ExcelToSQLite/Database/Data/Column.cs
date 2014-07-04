@@ -8,8 +8,7 @@ public class Column
 	public string Name { get; private set; }
 	public Type ColumnType { get; private set; }
 	public bool IsNullable { get; private set; }
-	public bool IsAutoIncrement { get; private set; }
-	public bool IsPrimaryKey { get; private set; }
+	public SpecifiedPrimaryKey SpecifiedPrimaryKey { get; private set; }
 	public SpecifiedForeignKey SpecifiedForeignKey { get; private set; }
 
 	public Column(PropertyInfo prop)
@@ -23,14 +22,14 @@ public class Column
 		IsNullable = notNullAttr == null;
 
 		var primaryKeyAttr = (PrimaryKeyAttribute)prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).FirstOrDefault();
-		IsPrimaryKey = primaryKeyAttr != null;
-		if(IsPrimaryKey)
+		SpecifiedPrimaryKey.IsPrimaryKey = primaryKeyAttr != null;
+		if(SpecifiedPrimaryKey.IsPrimaryKey)
 		{
-			IsAutoIncrement = primaryKeyAttr.IsAutoIncrement;
+			SpecifiedPrimaryKey.IsAutoIncrement = primaryKeyAttr.IsAutoIncrement;
 		}
 		else
 		{
-			IsAutoIncrement = false;
+			SpecifiedPrimaryKey.IsAutoIncrement = false;
 		}
 
 		var foreignKeyAttr = (ForeignKeyAttribute)prop.GetCustomAttributes(typeof(ForeignKeyAttribute), true).FirstOrDefault();

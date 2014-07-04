@@ -63,6 +63,7 @@
     <Compile Include="Database\Query\ParameterizedQuery.cs" />
     <Compile Include="Database\SqliteConnectionProvider.cs" />
     <Compile Include="Database\Data\ForeignKey.cs" />
+    <Compile Include="Database\Data\PrimaryKey.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
