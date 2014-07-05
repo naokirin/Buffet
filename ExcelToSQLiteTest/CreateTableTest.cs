@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using Mono.Data.Sqlite;
 
 class OnlyPrimaryKeyTable
 {
@@ -55,8 +56,9 @@ public class CreateTableTest
 	{
 		using(var connection = provider.GetOpenConnection())
 		{
-			Assert.Throws<NotAllowedTypeWithAutoIncrementException>(
-				() => connection.CreateTable<AutoIncrementColumnWithStringTable>());
+			Assert.Throws<SqliteException>(
+				() => connection.CreateTable<AutoIncrementColumnWithStringTable>(),
+				"SQLite error" + System.Environment.NewLine + "AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY");
 		}
 	}
 }

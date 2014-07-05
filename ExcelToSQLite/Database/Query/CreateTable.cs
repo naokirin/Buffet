@@ -9,14 +9,24 @@ public static class CreateTableExtension
 {
 	public static void CreateTable<T>(this SqliteConnection conn)
 	{
-		new CreateTable(typeof(T)).Exec(conn);
+		try
+		{
+			new CreateTable(typeof(T)).Exec(conn);
+		}
+		catch(SqliteException e)
+		{
+			Console.WriteLine(e.Message);
+			throw e;
+		}
 	}
 }
 
 public class CreateTable
 {
 	private string sql = "";
+
 	private Type TableType { get; set; }
+
 	private string TableName { get; set; }
 
 	public CreateTable(Type t)
@@ -28,10 +38,10 @@ public class CreateTable
 
 	public void Exec(SqliteConnection conn)
 	{
-		using (var cmd = conn.CreateCommand ())
+		using(var cmd = conn.CreateCommand())
 		{
 			cmd.CommandText = sql;
-			cmd.ExecuteNonQuery ();
+			cmd.ExecuteNonQuery();
 		}
 	}
 
@@ -43,22 +53,24 @@ public class CreateTable
 	private string GetTableData(Type t)
 	{
 		var tableAttr = (TableAttribute)Attribute.GetCustomAttribute(
-			t, typeof(TableAttribute), true);
+			                t, typeof(TableAttribute), true);
 
 		TableName = tableAttr != null ? tableAttr.Name : TableType.Name;
 
 		var properties = from property in t.GetRuntimeProperties()
-				where (property.GetMethod != null && property.GetMethod.IsPublic)
-					|| (property.SetMethod != null && property.SetMethod.IsPublic)
-					|| (property.GetMethod != null && property.GetMethod.IsStatic)
-					|| (property.SetMethod != null && property.SetMethod.IsStatic)
-			select property;
+		                 where (property.GetMethod != null && property.GetMethod.IsPublic)
+		                     || (property.SetMethod != null && property.SetMethod.IsPublic)
+		                     || (property.GetMethod != null && property.GetMethod.IsStatic)
+		                     || (property.SetMethod != null && property.SetMethod.IsStatic)
+		                 select property;
 
 		var columns = new List<Column>();
-		foreach(var property in properties) {
+		foreach(var property in properties)
+		{
 			var ignore = property.GetCustomAttributes(typeof(IgnoreAttribute), true).Any();
 
-			if (property.CanWrite && !ignore) {
+			if (property.CanWrite && !ignore)
+			{
 				columns.Add(new Column(TableName, property));
 			}
 		}
@@ -71,17 +83,18 @@ public class CreateTable
 	{
 		string columnQuery = "( ";
 		bool isFirst = true;
-		columns.ForEach(column => {
+		columns.ForEach(column =>
+		{
 			if (isFirst) isFirst = false;
 			else columnQuery += ", ";
 			columnQuery +=
 			column.Name + " "
-				+ column.ColumnType.ToSQLiteTypeString()
-				+ (column.IsNullable ? "" : " NOT NULL")
-				+ (column.SpecifiedPrimaryKey.IsPrimaryKey
-					&& columns.Where(x => x.SpecifiedPrimaryKey.IsPrimaryKey).Count() == 1 ? " PRIMARY KEY" : "")
-				+ (column.SpecifiedPrimaryKey.IsAutoIncrement ? " AUTOINCREMENT" : "")
-				+ System.Environment.NewLine;
+			+ column.ColumnType.ToSQLiteTypeString()
+			+ (column.IsNullable ? "" : " NOT NULL")
+			+ (column.SpecifiedPrimaryKey.IsPrimaryKey
+			&& columns.Where(x => x.SpecifiedPrimaryKey.IsPrimaryKey).Count() == 1 ? " PRIMARY KEY" : "")
+			+ (column.SpecifiedPrimaryKey.IsAutoIncrement ? " AUTOINCREMENT" : "")
+			+ System.Environment.NewLine;
 		});
 
 		columnQuery += GetPrimaryKeyQueryString(columns);
@@ -100,7 +113,8 @@ public class CreateTable
 		if (primaryKeyColumns.Any())
 		{
 			bool isFirst = true;
-			primaryKeyColumns.ForEach(column => {
+			primaryKeyColumns.ForEach(column =>
+			{
 				if (isFirst)
 				{
 					columnQuery += ", PRIMARY KEY (";
@@ -124,7 +138,8 @@ public class CreateTable
 		var foreignKeyColumns = columns.Where(column => column.SpecifiedForeignKey != null).ToList();
 		if (foreignKeyColumns.Any())
 		{
-			foreignKeyColumns.ForEach(column => {
+			foreignKeyColumns.ForEach(column =>
+			{
 				columnQuery += ", FOREIGN KEY (";
 				columnQuery += column.Name;
 				columnQuery += ") ";

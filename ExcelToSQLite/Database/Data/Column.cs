@@ -30,10 +30,6 @@ public class Column
 		if(SpecifiedPrimaryKey.IsPrimaryKey)
 		{
 			SpecifiedPrimaryKey.IsAutoIncrement = primaryKeyAttr.IsAutoIncrement;
-			if (SpecifiedPrimaryKey.IsAutoIncrement && ColumnType.ToSQLiteType() != SQLiteType.Integer)
-			{
-				throw new NotAllowedTypeWithAutoIncrementException(TableName, Name, ColumnType);
-			}
 		}
 		else
 		{

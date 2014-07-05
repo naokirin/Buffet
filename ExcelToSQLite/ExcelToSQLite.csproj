@@ -64,7 +64,6 @@
     <Compile Include="Database\Data\ForeignKey.cs" />
     <Compile Include="Database\Data\PrimaryKey.cs" />
     <Compile Include="Database\Attributes\PrimaryKeyAttribute.cs" />
-    <Compile Include="Database\Exception\NotAllowedTypeWithAutoIncrementException.cs" />
     <Compile Include="Database\Data\TypeTranslation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
