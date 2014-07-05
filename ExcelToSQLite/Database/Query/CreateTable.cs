@@ -23,7 +23,7 @@ public class CreateTable
 	{
 		TableType = t;
 		sql = GetSqlCommand(t);
-		Console.WriteLine(sql);
+		Console.WriteLine(sql + System.Environment.NewLine);
 	}
 
 	public void Exec(SqliteConnection conn)
@@ -59,7 +59,7 @@ public class CreateTable
 			var ignore = property.GetCustomAttributes(typeof(IgnoreAttribute), true).Any();
 
 			if (property.CanWrite && !ignore) {
-				columns.Add(new Column(property));
+				columns.Add(new Column(TableName, property));
 			}
 		}
 

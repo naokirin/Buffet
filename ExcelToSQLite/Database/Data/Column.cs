@@ -5,14 +5,17 @@ using System.Linq;
 
 public class Column
 {
+	public string TableName { get; private set; }
 	public string Name { get; private set; }
 	public Type ColumnType { get; private set; }
 	public bool IsNullable { get; private set; }
 	public SpecifiedPrimaryKey SpecifiedPrimaryKey { get; private set; }
 	public SpecifiedForeignKey SpecifiedForeignKey { get; private set; }
 
-	public Column(PropertyInfo prop)
+	public Column(string tableName, PropertyInfo prop)
 	{
+		TableName = tableName;
+
 		var columnAttr = (ColumnAttribute)prop.GetCustomAttributes(typeof(ColumnAttribute), true).FirstOrDefault();
 		Name = columnAttr == null ? prop.Name : columnAttr.Name;
 
@@ -27,6 +30,10 @@ public class Column
 		if(SpecifiedPrimaryKey.IsPrimaryKey)
 		{
 			SpecifiedPrimaryKey.IsAutoIncrement = primaryKeyAttr.IsAutoIncrement;
+			if (SpecifiedPrimaryKey.IsAutoIncrement && ColumnType != typeof(int))
+			{
+				throw new NotAllowedTypeWithAutoIncrementException(TableName, Name, ColumnType);
+			}
 		}
 		else
 		{
