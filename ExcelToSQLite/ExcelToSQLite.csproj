@@ -42,6 +42,7 @@
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -58,13 +59,13 @@
     <Compile Include="Database\Attributes\ForeignKeyAttribute.cs" />
     <Compile Include="Database\Query\CreateTable.cs" />
     <Compile Include="Database\Data\Column.cs" />
-    <Compile Include="Database\TypeTranslation.cs" />
     <Compile Include="Database\Query\ParameterizedQuery.cs" />
     <Compile Include="Database\SqliteConnectionProvider.cs" />
     <Compile Include="Database\Data\ForeignKey.cs" />
     <Compile Include="Database\Data\PrimaryKey.cs" />
     <Compile Include="Database\Attributes\PrimaryKeyAttribute.cs" />
     <Compile Include="Database\Exception\NotAllowedTypeWithAutoIncrementException.cs" />
+    <Compile Include="Database\Data\TypeTranslation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

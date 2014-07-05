@@ -75,7 +75,7 @@ public class CreateTable
 			else columnQuery += ", ";
 			columnQuery +=
 			column.Name + " "
-				+ TypeTranslation.TranslateDBType(column.ColumnType)
+				+ column.ColumnType.ToSQLiteTypeString()
 				+ (column.IsNullable ? "" : " NOT NULL")
 				+ (column.SpecifiedPrimaryKey.IsPrimaryKey
 					&& columns.Where(x => x.SpecifiedPrimaryKey.IsPrimaryKey).Count() == 1 ? " PRIMARY KEY" : "")
