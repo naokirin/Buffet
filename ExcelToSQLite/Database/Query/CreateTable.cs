@@ -63,7 +63,8 @@ public class CreateTable
 			}
 		}
 
-		return "CREATE TABLE IF NOT EXISTS " + TableName + " " + System.Environment.NewLine + GetColumnsQueryString(columns) + ";";
+		return String.Format("CREATE TABLE IF NOT EXISTS {0}{1}{2};",
+			TableName, System.Environment.NewLine, GetColumnsQueryString(columns));
 	}
 
 	private string GetColumnsQueryString(List<Column> columns)
