@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToSQLite", "ExcelToSQLite\ExcelToSQLite.csproj", "{BA532401-E0B1-48C9-AA8F-E355B8CC569E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoughlySQLite", "RoughlySQLite\RoughlySQLite.csproj", "{BA532401-E0B1-48C9-AA8F-E355B8CC569E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToSQLiteTest", "ExcelToSQLiteTest\ExcelToSQLiteTest.csproj", "{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoughlySQLiteTest", "RoughlySQLiteTest\RoughlySQLiteTest.csproj", "{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,5 @@ Global
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Debug|x86.Build.0 = Debug|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.ActiveCfg = Release|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.Build.0 = Release|x86
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItems = $0
-		$0.Item = ExcelToSQLite\ExcelToSQLite.csproj
-		$0.Item = ExcelToSQLiteTest\ExcelToSQLiteTest.csproj
 	EndGlobalSection
 EndGlobal
