@@ -53,6 +53,16 @@ namespace RoughlySQLiteTest
 		public string PKey2 { get; set; }
 	}
 
+	[MultiColumnForeignKey(new string[]{ "PKey1", "PKey2" }, typeof(MultiColumnPrimaryKeyTable), new string[] { "PKey1", "PKey2" })]
+	[MultiColumnForeignKey(new string[]{ "PKey3", "PKey4" }, typeof(MultiColumnPrimaryKeyTable), new string[] { "PKey1", "PKey2" })]
+	class SpecifiedMultiColumnForeignKeysTable
+	{
+		public string PKey1 { get; set; }
+		public string PKey2 { get; set; }
+		public string PKey3 { get; set; }
+		public string PKey4 { get; set; }
+	}
+
 	[TestFixture]
 	public class CreateTableTest
 	{
@@ -138,6 +148,34 @@ namespace RoughlySQLiteTest
 						connection.CreateTable<OnlyPrimaryKeyTable>();
 						connection.CreateTable<SpecifiedForeignKeyTable>();
 					});
+			}
+		}
+
+		[Test]
+		public void TestCreateMultiColumnForeignKeyTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				Assert.DoesNotThrow(
+					() =>
+				{
+					connection.CreateTable<MultiColumnPrimaryKeyTable>();
+					connection.CreateTable<SpecifiedMultiColumnForeignKeyTable>();
+				});
+			}
+		}
+
+		[Test]
+		public void TestCreateMultiColumnForeignKeysTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				Assert.DoesNotThrow(
+					() =>
+				{
+					connection.CreateTable<MultiColumnPrimaryKeyTable>();
+					connection.CreateTable<SpecifiedMultiColumnForeignKeysTable>();
+				});
 			}
 		}
 	}
