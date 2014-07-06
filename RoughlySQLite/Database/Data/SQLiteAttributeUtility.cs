@@ -2,7 +2,7 @@
 
 namespace RoughlySQLite
 {
-	internal static class SQLiteAttributeUtility
+	static class SQLiteAttributeUtility
 	{
 		public static Attribute GetAttribute(this Type t, Type attributeType)
 		{

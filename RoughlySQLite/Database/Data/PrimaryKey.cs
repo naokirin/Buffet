@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace RoughlySQLite
 {
 
-	public class SpecifiedPrimaryKey
+	class SpecifiedPrimaryKey
 	{
 		public bool IsAutoIncrement { get; set; }
 
 		public bool IsPrimaryKey { get; set; }
 	}
 
-	public class SpecifiedMultiColumnPrimaryKey
+	class SpecifiedMultiColumnPrimaryKey
 	{
 		public List<string> Columns { get; set; }
 	}

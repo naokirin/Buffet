@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace RoughlySQLite
 {
 
-	public static class ForeignKeyUtil
+	static class ForeignKeyUtil
 	{
 		static Dictionary<OnDeleteAction, string> onDeleteActions = new Dictionary<OnDeleteAction, string> {
 			{ OnDeleteAction.Cascade, "CASCADE" },

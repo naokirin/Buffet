@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RoughlySQLite
 {
-	public class Table
+	class Table
 	{
 		public string TableName { get; private set; }
 

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace RoughlySQLite
 {
 
-	public enum SQLiteType
+	enum SQLiteType
 	{
 		Integer,
 		Bigint,
@@ -15,7 +15,7 @@ namespace RoughlySQLite
 		Blob
 	}
 
-	public static class TypeTranslation
+	static class TypeTranslation
 	{
 		public static SQLiteType ToSQLiteType(this Type t)
 		{
