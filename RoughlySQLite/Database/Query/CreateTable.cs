@@ -22,13 +22,13 @@ namespace RoughlySQLite
 		}
 	}
 
-	public class CreateTable
+	class CreateTable
 	{
-		private string sql = "";
+		string sql = "";
 
-		private Type TableType { get; set; }
+		Type TableType { get; set; }
 
-		private string TableName { get; set; }
+		string TableName { get; set; }
 
 		public CreateTable(Type t)
 		{
@@ -46,12 +46,12 @@ namespace RoughlySQLite
 			}
 		}
 
-		private string GetSqlCommand(Type t)
+		string GetSqlCommand(Type t)
 		{
 			return GetTableData(t);
 		}
 
-		private string GetTableData(Type t)
+		string GetTableData(Type t)
 		{
 			var tableAttr = (TableAttribute)t.GetAttribute(typeof(TableAttribute));
 
@@ -102,7 +102,7 @@ namespace RoughlySQLite
 				TableName, System.Environment.NewLine, GetColumnsQueryString(table));
 		}
 
-		private string GetColumnsQueryString(Table table)
+		string GetColumnsQueryString(Table table)
 		{
 			string columnQuery = "( ";
 			bool isFirst = true;
@@ -127,7 +127,7 @@ namespace RoughlySQLite
 			return columnQuery;
 		}
 
-		private string GetPrimaryKeyQueryString(Table table)
+		string GetPrimaryKeyQueryString(Table table)
 		{
 			var columnQuery = "";
 			if (table.SpecifiedMultiColumnPrimaryKey != null && table.SpecifiedMultiColumnPrimaryKey.Columns.Any())
@@ -152,7 +152,7 @@ namespace RoughlySQLite
 			return columnQuery;
 		}
 
-		private string GetForeignKeyQueryString(Table table)
+		string GetForeignKeyQueryString(Table table)
 		{
 			var columnQuery = "";
 			var foreignKeyColumns = table.Columns.Where(column => column.SpecifiedForeignKey != null).ToList();
