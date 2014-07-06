@@ -53,28 +53,22 @@ namespace RoughlySQLite
 
 		private string GetTableData(Type t)
 		{
-			var tableAttr = (TableAttribute)Attribute.GetCustomAttribute(
-				               t, typeof(TableAttribute), true);
+			var tableAttr = (TableAttribute)t.GetAttribute(typeof(TableAttribute));
 
 			TableName = tableAttr != null ? tableAttr.Name : TableType.Name;
 
-			var multiColumnPrimaryKeyAttr = (MultiColumnPrimaryKeyAttribute)Attribute.GetCustomAttribute(
-				                               t, typeof(MultiColumnPrimaryKeyAttribute), true);
-
+			var multiColumnPrimaryKeyAttr = (MultiColumnPrimaryKeyAttribute)t.GetAttribute(typeof(MultiColumnPrimaryKeyAttribute));
 			var multiColumnPrimaryKey = new SpecifiedMultiColumnPrimaryKey();
 			multiColumnPrimaryKey.Columns = multiColumnPrimaryKeyAttr != null ? multiColumnPrimaryKeyAttr.Columns : new List<string>();
 
-			var multiColumnForeignKeyAttrs = (MultiColumnForeignKeyAttribute[])Attribute.GetCustomAttributes(
-				                                t, typeof(MultiColumnForeignKeyAttribute), true);
-
+			var multiColumnForeignKeyAttrs = (MultiColumnForeignKeyAttribute[])t.GetAttributes(typeof(MultiColumnForeignKeyAttribute));
 			var multiColumnForeignKeys = new List<SpecifiedMultiColumnForeignKey>();
 			if (multiColumnForeignKeyAttrs != null)
 			{
 				multiColumnForeignKeyAttrs.ToList().ForEach(x =>
 				{
 					var key = new SpecifiedMultiColumnForeignKey();
-					var referencedTableAttr = (TableAttribute)Attribute.GetCustomAttribute(
-						                         x.ReferencedTableType, typeof(TableAttribute), true);
+					var referencedTableAttr = (TableAttribute)x.ReferencedTableType.GetAttribute(typeof(TableAttribute));
 					key.ForeignTable = referencedTableAttr != null ? referencedTableAttr.Name : x.ReferencedTableType.Name;
 					key.ReferencedColumns = x.ReferencedColumns;
 					key.Columns = x.Columns;
