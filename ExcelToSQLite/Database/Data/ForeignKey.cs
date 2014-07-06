@@ -34,7 +34,16 @@ public static class ForeignKeyUtil
 public class SpecifiedForeignKey
 {
 	public string ForeignTable { get; set; }
-	public string ForeignColumn { get; set; }
+	public string ReferencedColumn { get; set; }
+	public OnDeleteAction OnDeleteAction { get; set; }
+	public OnUpdateAction OnUpdateAction { get; set; }
+}
+
+public class SpecifiedMultiColumnForeignKey
+{
+	public string ForeignTable { get; set; }
+	public List<string> Columns { get; set; }
+	public List<string> ReferencedColumns { get; set; }
 	public OnDeleteAction OnDeleteAction { get; set; }
 	public OnUpdateAction OnUpdateAction { get; set; }
 }

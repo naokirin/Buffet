@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public enum OnDeleteAction
 {
@@ -21,8 +22,8 @@ public enum OnUpdateAction
 [AttributeUsage(AttributeTargets.Property)]
 public class ForeignKeyAttribute : Attribute
 {
-	public Type ForeignType { get; set; }
-	public string ForeignColumn { get; set; }
+	public Type ReferencedTableType { get; set; }
+	public string Column { get; set; }
 
 	private OnDeleteAction onDeleteAction = OnDeleteAction.NoAction;
 	public OnDeleteAction OnDeleteAction {
@@ -38,7 +39,38 @@ public class ForeignKeyAttribute : Attribute
 
 	public ForeignKeyAttribute(Type foreignType, string foreignColumn)
 	{
-		ForeignType = foreignType;
-		ForeignColumn = foreignColumn;
+		ReferencedTableType = foreignType;
+		Column = foreignColumn;
+	}
+}
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+public class MultiColumnForeignKeyAttribute : Attribute
+{
+	public List<string> Columns { get; set; }
+	public List<string> ReferencedColumns { get; set; }
+	public Type ReferencedTableType { get; set; }
+
+	private OnDeleteAction onDeleteAction = OnDeleteAction.NoAction;
+	public OnDeleteAction OnDeleteAction {
+		get { return onDeleteAction; }
+		set { onDeleteAction = value; }
+	}
+
+	private OnUpdateAction onUpdateAction = OnUpdateAction.NoAction;
+	public OnUpdateAction OnUpdateAction {
+		get { return onUpdateAction; }
+		set { onUpdateAction = value; }
+	}
+
+	public MultiColumnForeignKeyAttribute()
+	{
+	}
+
+	public MultiColumnForeignKeyAttribute(string[] columns, Type referencedTableType, string[] referencedColumns)
+	{
+		Columns = new List<string>(columns);
+		ReferencedTableType = referencedTableType;
+		ReferencedColumns = new List<string>(referencedColumns);
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
+using System.Collections.Generic;
 using Mono.Data.Sqlite;
 
 class OnlyPrimaryKeyTable
@@ -11,26 +11,60 @@ class OnlyPrimaryKeyTable
 class AutoIncrementColumnTable
 {
 	[PrimaryKey(IsAutoIncrement = true)]
-	public int PKey { get; set;}
+	public int PKey { get; set; }
 }
 
 class AutoIncrementColumnWithStringTable
 {
 	[PrimaryKey(IsAutoIncrement = true)]
-	public string PKey { get; set;}
+	public string PKey { get; set; }
+}
+
+[MultiColumnPrimaryKey(new string[]{ "PKey1", "PKey2" })]
+class MultiColumnPrimaryKeyTable
+{
+	public string PKey1 { get; set; }
+
+	public string PKey2 { get; set; }
+}
+
+class InvalidMultiColumnPrimaryKeyTable
+{
+	[PrimaryKey]
+	public string PKey1 { get; set; }
+
+	[PrimaryKey]
+	public string PKey2 { get; set; }
+}
+
+class SpecifiedForeignKeyTable
+{
+	[ForeignKey(typeof(OnlyPrimaryKeyTable), "PKey")]
+	public string PKey { get; set; }
 }
 
 [TestFixture]
 public class CreateTableTest
 {
+	string dbFileName;
 	SqliteConnectionProvider provider;
+
+	[TestFixtureSetUp]
+	public void SetUpFixture()
+	{
+		dbFileName = DbTest.GetTempFileName();
+	}
 
 	[SetUp]
 	public void SetUp()
 	{
-		string dbFileName = DbTest.GetTempFileName();
-		SqliteConnectionProvider.DeleteDBFile(dbFileName);
 		provider = new SqliteConnectionProvider(dbFileName);
+	}
+
+	[TearDown]
+	public void TearDown()
+	{
+		SqliteConnectionProvider.DeleteDBFile(dbFileName);
 	}
 
 	[Test]
@@ -59,6 +93,41 @@ public class CreateTableTest
 			Assert.Throws<SqliteException>(
 				() => connection.CreateTable<AutoIncrementColumnWithStringTable>(),
 				"SQLite error" + System.Environment.NewLine + "AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY");
+		}
+	}
+
+	[Test]
+	public void TestCreateMultiColumnPrimaryKeyTable()
+	{
+		using(var connection = provider.GetOpenConnection())
+		{
+			Assert.DoesNotThrow(
+				() => connection.CreateTable<MultiColumnPrimaryKeyTable>());
+		}
+	}
+
+	[Test]
+	public void TestFailedToCreateInvalidMultiColumnPrimaryKeyTable()
+	{
+		using(var connection = provider.GetOpenConnection())
+		{
+			Assert.Throws<SqliteException>(
+				() => connection.CreateTable<InvalidMultiColumnPrimaryKeyTable>(),
+				"SQLite error" + System.Environment.NewLine + "table \"InvalidMultiColumnPrimaryKeyTable\" has more than one primary key");
+		}
+	}
+
+	[Test]
+	public void TestCreateForeignKeyTable()
+	{
+		using(var connection = provider.GetOpenConnection())
+		{
+			Assert.DoesNotThrow(
+				() =>
+				{
+					connection.CreateTable<OnlyPrimaryKeyTable>();
+					connection.CreateTable<SpecifiedForeignKeyTable>();
+				});
 		}
 	}
 }

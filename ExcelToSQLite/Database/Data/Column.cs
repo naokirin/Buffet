@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Reflection;
+using System.Collections.Generic;
 using System.Linq;
-
 
 public class Column
 {
-	public string TableName { get; private set; }
 	public string Name { get; private set; }
 	public Type ColumnType { get; private set; }
 	public bool IsNullable { get; private set; }
 	public SpecifiedPrimaryKey SpecifiedPrimaryKey { get; private set; }
 	public SpecifiedForeignKey SpecifiedForeignKey { get; private set; }
 
-	public Column(string tableName, PropertyInfo prop)
+	public Column(PropertyInfo prop)
 	{
-		TableName = tableName;
-
 		var columnAttr = (ColumnAttribute)prop.GetCustomAttributes(typeof(ColumnAttribute), true).FirstOrDefault();
 		Name = columnAttr == null ? prop.Name : columnAttr.Name;
 
@@ -40,9 +37,9 @@ public class Column
 		if (foreignKeyAttr != null)
 		{
 			SpecifiedForeignKey = new SpecifiedForeignKey();
-			var tableInfo = (TableAttribute)foreignKeyAttr.ForeignType.GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault();
-			SpecifiedForeignKey.ForeignTable = tableInfo != null ? tableInfo.Name : foreignKeyAttr.ForeignType.Name;
-			SpecifiedForeignKey.ForeignColumn = foreignKeyAttr.ForeignColumn;
+			var tableInfo = (TableAttribute)foreignKeyAttr.ReferencedTableType.GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault();
+			SpecifiedForeignKey.ForeignTable = tableInfo != null ? tableInfo.Name : foreignKeyAttr.ReferencedTableType.Name;
+			SpecifiedForeignKey.ReferencedColumn = foreignKeyAttr.Column;
 			SpecifiedForeignKey.OnDeleteAction = foreignKeyAttr.OnDeleteAction;
 			SpecifiedForeignKey.OnUpdateAction = foreignKeyAttr.OnUpdateAction;
 		}

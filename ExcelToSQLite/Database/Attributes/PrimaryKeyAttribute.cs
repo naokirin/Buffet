@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class PrimaryKeyAttribute : Attribute
@@ -8,5 +9,20 @@ public class PrimaryKeyAttribute : Attribute
 	{
 		get { return isAutoIncrement; }
 		set { isAutoIncrement = value; }
+	}
+}
+
+[AttributeUsage(AttributeTargets.Class)]
+public class MultiColumnPrimaryKeyAttribute : Attribute
+{
+	public List<string> Columns;
+
+	public MultiColumnPrimaryKeyAttribute()
+	{
+	}
+
+	public MultiColumnPrimaryKeyAttribute(string[] columns)
+	{
+		Columns = new List<string>(columns);
 	}
 }

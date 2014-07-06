@@ -33,11 +33,11 @@ public class CreateTable
 	{
 		TableType = t;
 		sql = GetSqlCommand(t);
-		Console.WriteLine(sql + System.Environment.NewLine);
 	}
 
 	public void Exec(SqliteConnection conn)
 	{
+		Console.WriteLine(sql + System.Environment.NewLine);
 		using(var cmd = conn.CreateCommand())
 		{
 			cmd.CommandText = sql;
@@ -57,6 +57,32 @@ public class CreateTable
 
 		TableName = tableAttr != null ? tableAttr.Name : TableType.Name;
 
+		var multiColumnPrimaryKeyAttr = (MultiColumnPrimaryKeyAttribute)Attribute.GetCustomAttribute(
+			                                t, typeof(MultiColumnPrimaryKeyAttribute), true);
+
+		var multiColumnPrimaryKey = new SpecifiedMultiColumnPrimaryKey();
+		multiColumnPrimaryKey.Columns = multiColumnPrimaryKeyAttr != null ? multiColumnPrimaryKeyAttr.Columns : new List<string>();
+
+		var multiColumnForeignKeyAttrs = (MultiColumnForeignKeyAttribute[])Attribute.GetCustomAttributes(
+			                                 t, typeof(MultiColumnForeignKeyAttribute), true);
+
+		var multiColumnForeignKeys = new List<SpecifiedMultiColumnForeignKey>();
+		if (multiColumnForeignKeyAttrs != null)
+		{
+			multiColumnForeignKeyAttrs.ToList().ForEach(x =>
+			{
+				var key = new SpecifiedMultiColumnForeignKey();
+				var referencedTableAttr = (TableAttribute)Attribute.GetCustomAttribute(
+					x.ReferencedTableType, typeof(TableAttribute), true);
+				key.ForeignTable = referencedTableAttr != null ? referencedTableAttr.Name : x.ReferencedTableType.Name;
+				key.ReferencedColumns = x.ReferencedColumns;
+				key.Columns = x.Columns;
+				key.OnDeleteAction = x.OnDeleteAction;
+				key.OnUpdateAction = x.OnUpdateAction;
+				multiColumnForeignKeys.Add(key);
+			});
+		}
+
 		var properties = from property in t.GetRuntimeProperties()
 		                 where (property.GetMethod != null && property.GetMethod.IsPublic)
 		                     || (property.SetMethod != null && property.SetMethod.IsPublic)
@@ -71,19 +97,21 @@ public class CreateTable
 
 			if (property.CanWrite && !ignore)
 			{
-				columns.Add(new Column(TableName, property));
+				columns.Add(new Column(property));
 			}
 		}
 
+		var table = new Table(TableName, columns, multiColumnPrimaryKey, multiColumnForeignKeys);
+
 		return String.Format("CREATE TABLE IF NOT EXISTS {0}{1}{2};",
-			TableName, System.Environment.NewLine, GetColumnsQueryString(columns));
+			TableName, System.Environment.NewLine, GetColumnsQueryString(table));
 	}
 
-	private string GetColumnsQueryString(List<Column> columns)
+	private string GetColumnsQueryString(Table table)
 	{
 		string columnQuery = "( ";
 		bool isFirst = true;
-		columns.ForEach(column =>
+		table.Columns.ForEach(column =>
 		{
 			if (isFirst) isFirst = false;
 			else columnQuery += ", ";
@@ -91,29 +119,26 @@ public class CreateTable
 			column.Name + " "
 			+ column.ColumnType.ToSQLiteTypeString()
 			+ (column.IsNullable ? "" : " NOT NULL")
-			+ (column.SpecifiedPrimaryKey.IsPrimaryKey
-			&& columns.Where(x => x.SpecifiedPrimaryKey.IsPrimaryKey).Count() == 1 ? " PRIMARY KEY" : "")
+			+ (column.SpecifiedPrimaryKey.IsPrimaryKey ? " PRIMARY KEY" : "")
 			+ (column.SpecifiedPrimaryKey.IsAutoIncrement ? " AUTOINCREMENT" : "")
 			+ System.Environment.NewLine;
 		});
 
-		columnQuery += GetPrimaryKeyQueryString(columns);
-		columnQuery += GetForeignKeyQueryString(columns);
+		columnQuery += GetPrimaryKeyQueryString(table);
+		columnQuery += GetForeignKeyQueryString(table);
 
 		columnQuery += ")";
 
 		return columnQuery;
 	}
 
-	private string GetPrimaryKeyQueryString(List<Column> columns)
+	private string GetPrimaryKeyQueryString(Table table)
 	{
 		var columnQuery = "";
-		var primaryKeyColumns = columns.Where(column => column.SpecifiedPrimaryKey.IsPrimaryKey).ToList();
-		if (primaryKeyColumns.Count <= 1) return "";
-		if (primaryKeyColumns.Any())
+		if (table.SpecifiedMultiColumnPrimaryKey != null && table.SpecifiedMultiColumnPrimaryKey.Columns.Any())
 		{
 			bool isFirst = true;
-			primaryKeyColumns.ForEach(column =>
+			table.SpecifiedMultiColumnPrimaryKey.Columns.ForEach(column =>
 			{
 				if (isFirst)
 				{
@@ -124,7 +149,7 @@ public class CreateTable
 				{
 					columnQuery += ", ";
 				}
-				columnQuery += column.Name;
+				columnQuery += column;
 			});
 			columnQuery += ")" + System.Environment.NewLine;
 		}
@@ -132,10 +157,10 @@ public class CreateTable
 		return columnQuery;
 	}
 
-	private string GetForeignKeyQueryString(List<Column> columns)
+	private string GetForeignKeyQueryString(Table table)
 	{
 		var columnQuery = "";
-		var foreignKeyColumns = columns.Where(column => column.SpecifiedForeignKey != null).ToList();
+		var foreignKeyColumns = table.Columns.Where(column => column.SpecifiedForeignKey != null).ToList();
 		if (foreignKeyColumns.Any())
 		{
 			foreignKeyColumns.ForEach(column =>
@@ -146,12 +171,31 @@ public class CreateTable
 
 				columnQuery += "REFERENCES ";
 				columnQuery += column.SpecifiedForeignKey.ForeignTable;
-				columnQuery += "(" + column.SpecifiedForeignKey.ForeignColumn + ")";
+				columnQuery += "(" + column.SpecifiedForeignKey.ReferencedColumn + ")";
 
 				columnQuery += " ON UPDATE " + column.SpecifiedForeignKey.OnUpdateAction.GetQueryString();
 				columnQuery += " ON DELETE " + column.SpecifiedForeignKey.OnDeleteAction.GetQueryString();
 				columnQuery += System.Environment.NewLine;
 			});
+		}
+
+		if (table.SpecifiedMultiColumnForeignKeys != null && table.SpecifiedMultiColumnForeignKeys.Any())
+		{
+			table.SpecifiedMultiColumnForeignKeys.ForEach(key =>
+			{
+				columnQuery += ", FOREIGN KEY (";
+				columnQuery += String.Join(", ", key.Columns);
+				columnQuery += ") ";
+
+				columnQuery += "REFERENCES ";
+				columnQuery += key.ForeignTable;
+				columnQuery += "(" + String.Join(", ", key.ReferencedColumns) + ")";
+
+				columnQuery += " ON UPDATE " + key.OnUpdateAction.GetQueryString();
+				columnQuery += " ON DELETE " + key.OnDeleteAction.GetQueryString();
+				columnQuery += System.Environment.NewLine;
+			}
+			);
 		}
 
 		return columnQuery;
