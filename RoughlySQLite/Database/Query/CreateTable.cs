@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mono.Data.Sqlite;
 using System.Reflection;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RoughlySQLite
 {
@@ -13,6 +14,19 @@ namespace RoughlySQLite
 			try
 			{
 				new CreateTable(typeof(T)).Exec(conn);
+			}
+			catch(SqliteException e)
+			{
+				Console.WriteLine(e.Message);
+				throw e;
+			}
+		}
+
+		public static async Task CreateTableAsync<T>(this SqliteConnection conn)
+		{
+			try
+			{
+				await new CreateTable(typeof(T)).ExecAsync(conn);
 			}
 			catch(SqliteException e)
 			{
@@ -43,6 +57,16 @@ namespace RoughlySQLite
 			{
 				cmd.CommandText = sql;
 				cmd.ExecuteNonQuery();
+			}
+		}
+
+		public async Task ExecAsync(SqliteConnection conn)
+		{
+			Console.WriteLine(sql + System.Environment.NewLine);
+			using(var cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = sql;
+				await cmd.ExecuteNonQueryAsync();
 			}
 		}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Mono.Data.Sqlite;
 using RoughlySQLite;
+using System.Threading.Tasks;
 
 namespace RoughlySQLiteTest
 {
@@ -176,6 +177,16 @@ namespace RoughlySQLiteTest
 					connection.CreateTable<MultiColumnPrimaryKeyTable>();
 					connection.CreateTable<SpecifiedMultiColumnForeignKeysTable>();
 				});
+			}
+		}
+
+		[Test]
+		public void TestCreateTableAsync()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				Assert.DoesNotThrow(
+					() =>  connection.CreateTableAsync<OnlyPrimaryKeyTable>().Wait());
 			}
 		}
 	}
