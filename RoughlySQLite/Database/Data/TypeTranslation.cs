@@ -46,7 +46,7 @@ namespace RoughlySQLite
 				return SQLiteType.Blob;
 			}
 
-			throw new NotSupportedException("Unknown to translate " + t.FullName + " to sqlite type.");
+			throw new NotSupportedException("Unknown to translate " + t.FullName + " to SQLite type.");
 		}
 
 		public static string ToSQLiteTypeString(this Type t)
@@ -66,7 +66,7 @@ namespace RoughlySQLite
 			case SQLiteType.Blob:
 				return "BLOB";
 			}
-			throw new NotSupportedException("Unknown to translate " + t.FullName + " to sqlite type.");
+			throw new NotSupportedException("Unknown to translate " + t.FullName + " to SQLite type.");
 		}
 	}
 }

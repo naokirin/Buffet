@@ -1,20 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLiteTest/CreateTableTest.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLite/Database/SqliteConnectionProvider.cs">
     <Files>
-      <File FileName="RoughlySQLite/Database/Attributes/UniqueAttribute.cs" Line="12" Column="11" />
-      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="4" Column="21" />
-      <File FileName="RoughlySQLiteTest/DbTest.cs" Line="12" Column="4" />
+      <File FileName="RoughlySQLite/Database/Query/CreateTable.cs" Line="5" Column="15" />
+      <File FileName="RoughlySQLite/Database/Query/Insert.cs" Line="2" Column="1" />
+      <File FileName="RoughlySQLite/Database/SqliteConnectionProvider.cs" Line="2" Column="17" />
+      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="120" Column="72" />
+      <File FileName="RoughlySQLite/packages.config" Line="7" Column="96" />
+      <File FileName="RoughlySQLiteTest/packages.config" Line="8" Column="96" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True">
-          <Node name="RoughlySQLiteTest" expanded="True">
-            <Node name="RoughlySQLiteTest" expanded="True">
-              <Node name="CreateTableTest" expanded="True" />
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

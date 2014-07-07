@@ -1,34 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mono.Data.Sqlite;
 using System.Reflection;
 using System.Linq;
 using System.Threading.Tasks;
+
+#if NET45
+using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
+using SQLiteException = System.Data.SQLite.SQLiteException;
+#else
+using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
+using SQLiteException = Mono.Data.Sqlite.SqliteException;
+#endif
 
 namespace RoughlySQLite
 {
 	public static class CreateTableExtension
 	{
-		public static void CreateTable<T>(this SqliteConnection conn)
+		public static void CreateTable<T>(this SQLiteConnection conn)
 		{
 			try
 			{
 				new CreateTable(typeof(T)).Exec(conn);
 			}
-			catch(SqliteException e)
+			catch(SQLiteException e)
 			{
 				Console.WriteLine(e.Message);
 				throw e;
 			}
 		}
 
-		public static async Task CreateTableAsync<T>(this SqliteConnection conn)
+		public static async Task CreateTableAsync<T>(this SQLiteConnection conn)
 		{
 			try
 			{
 				await new CreateTable(typeof(T)).ExecAsync(conn);
 			}
-			catch(SqliteException e)
+			catch(SQLiteException e)
 			{
 				Console.WriteLine(e.Message);
 				throw e;
@@ -50,7 +57,7 @@ namespace RoughlySQLite
 			sql = GetSqlCommand(t);
 		}
 
-		public void Exec(SqliteConnection conn)
+		public void Exec(SQLiteConnection conn)
 		{
 			Console.WriteLine(sql + System.Environment.NewLine);
 			using(var cmd = conn.CreateCommand())
@@ -60,7 +67,7 @@ namespace RoughlySQLite
 			}
 		}
 
-		public async Task ExecAsync(SqliteConnection conn)
+		public async Task ExecAsync(SQLiteConnection conn)
 		{
 			Console.WriteLine(sql + System.Environment.NewLine);
 			using(var cmd = conn.CreateCommand())

@@ -1,17 +1,23 @@
 ﻿using System;
-using Mono.Data.Sqlite;
+#if NET45
+using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
+using SQLiteException = System.Data.SQLite.SQLiteException;
+#else
+using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
+using SQLiteException = Mono.Data.Sqlite.SqliteException;
+#endif
 
 namespace RoughlySQLite
 {
 	public static class InsertExtension
 	{
-		public static void Insert<T>(this SqliteConnection conn)
+		public static void Insert<T>(this SQLiteConnection conn)
 		{
 			try
 			{
 				new Insert(typeof(T)).Exec(conn);
 			}
-			catch(SqliteException e)
+			catch(SQLiteException e)
 			{
 				Console.WriteLine(e.Message);
 				throw e;
@@ -33,7 +39,7 @@ namespace RoughlySQLite
 			sql = GetSqlCommand(t);
 		}
 
-		public void Exec(SqliteConnection conn)
+		public void Exec(SQLiteConnection conn)
 		{
 			Console.WriteLine(sql + System.Environment.NewLine);
 			using(var cmd = conn.CreateCommand())

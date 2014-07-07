@@ -3,7 +3,7 @@ using System.IO;
 
 namespace RoughlySQLiteTest
 {
-	public class DbTest
+	public static class DbTest
 	{
 		public static string GetTempFileName()
 		{

@@ -1,24 +1,28 @@
 ﻿using System;
-using System.Data;
-using System.Collections.Generic;
 using System.IO;
-using Mono.Data.Sqlite;
-using System.Threading.Tasks;
+
+#if NET45
+using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
+using SQLiteException = System.Data.SQLite.SQLiteException;
+#else
+using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
+using SQLiteException = Mono.Data.Sqlite.SqliteException;
+#endif
 
 namespace RoughlySQLite
 {
 
-	public sealed class SqliteConnectionProvider : IDisposable
+	public sealed class SQLiteConnectionProvider : IDisposable
 	{
-		private string dbFileName = "";
-		private SqliteConnection conn = null;
+		string dbFileName = "";
+		SQLiteConnection conn = null;
 
-		public SqliteConnectionProvider(string dbFileName)
+		public SQLiteConnectionProvider(string dbFileName)
 		{
 			this.dbFileName = dbFileName;
 		}
 
-		public SqliteConnection GetOpenConnection()
+		public SQLiteConnection GetOpenConnection()
 		{
 			if (conn != null)
 			{
@@ -29,9 +33,9 @@ namespace RoughlySQLite
 			// Create our connection
 			bool exists = File.Exists(dbFileName);
 
-			if (!exists) SqliteConnection.CreateFile(dbFileName);
+			if (!exists) SQLiteConnection.CreateFile(dbFileName);
 
-			conn = new SqliteConnection("DbLinqProvider=Sqlite;Data Source=" + dbFileName + ";Foreign Keys=true;");
+			conn = new SQLiteConnection("DbLinqProvider=SQLite;Data Source=" + dbFileName + ";Foreign Keys=true;");
 
 			conn.Open();
 			return conn;

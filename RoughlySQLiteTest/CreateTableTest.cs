@@ -1,8 +1,13 @@
 ﻿using NUnit.Framework;
-using System.Collections.Generic;
-using Mono.Data.Sqlite;
 using RoughlySQLite;
-using System.Threading.Tasks;
+
+#if NET45
+using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
+using SQLiteException = System.Data.SQLite.SQLiteException;
+#else
+using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
+using SQLiteException = Mono.Data.Sqlite.SqliteException;
+#endif
 
 namespace RoughlySQLiteTest
 {
@@ -68,7 +73,7 @@ namespace RoughlySQLiteTest
 	public class CreateTableTest
 	{
 		string dbFileName;
-		SqliteConnectionProvider provider;
+		SQLiteConnectionProvider provider;
 
 		[TestFixtureSetUp]
 		public void SetUpFixture()
@@ -79,13 +84,13 @@ namespace RoughlySQLiteTest
 		[SetUp]
 		public void SetUp()
 		{
-			provider = new SqliteConnectionProvider(dbFileName);
+			provider = new SQLiteConnectionProvider(dbFileName);
 		}
 
 		[TearDown]
 		public void TearDown()
 		{
-			SqliteConnectionProvider.DeleteDBFile(dbFileName);
+			SQLiteConnectionProvider.DeleteDBFile(dbFileName);
 		}
 
 		[Test]
@@ -111,9 +116,8 @@ namespace RoughlySQLiteTest
 		{
 			using(var connection = provider.GetOpenConnection())
 			{
-				Assert.Throws<SqliteException>(
-					() => connection.CreateTable<AutoIncrementColumnWithStringTable>(),
-					"SQLite error" + System.Environment.NewLine + "AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY");
+				Assert.Throws<SQLiteException>(
+					() => connection.CreateTable<AutoIncrementColumnWithStringTable>());
 			}
 		}
 
@@ -132,9 +136,8 @@ namespace RoughlySQLiteTest
 		{
 			using(var connection = provider.GetOpenConnection())
 			{
-				Assert.Throws<SqliteException>(
-					() => connection.CreateTable<InvalidMultiColumnPrimaryKeyTable>(),
-					"SQLite error" + System.Environment.NewLine + "table \"InvalidMultiColumnPrimaryKeyTable\" has more than one primary key");
+				Assert.Throws<SQLiteException>(
+					() => connection.CreateTable<InvalidMultiColumnPrimaryKeyTable>());
 			}
 		}
 
