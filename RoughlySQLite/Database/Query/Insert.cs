@@ -25,31 +25,13 @@ namespace RoughlySQLite
 		}
 	}
 
-	class Insert
+	class Insert : NonQeuryCommand
 	{
-		string sql = "";
-
-		Type TableType { get; set; }
-
-		string TableName { get; set; }
-
-		public Insert(Type t)
+		public Insert(Type t) : base(t)
 		{
-			TableType = t;
-			sql = GetSqlCommand(t);
 		}
 
-		public void Exec(SQLiteConnection conn)
-		{
-			Console.WriteLine(sql + System.Environment.NewLine);
-			using(var cmd = conn.CreateCommand())
-			{
-				cmd.CommandText = sql;
-				cmd.ExecuteNonQuery();
-			}
-		}
-
-		string GetSqlCommand(Type t)
+		override protected string GetSqlCommand(Type t)
 		{
 			return "";
 		}

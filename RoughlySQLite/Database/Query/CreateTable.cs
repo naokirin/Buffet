@@ -43,41 +43,13 @@ namespace RoughlySQLite
 		}
 	}
 
-	class CreateTable
+	class CreateTable : NonQeuryCommand
 	{
-		string sql = "";
-
-		Type TableType { get; set; }
-
-		string TableName { get; set; }
-
-		public CreateTable(Type t)
+		public CreateTable(Type t) : base(t)
 		{
-			TableType = t;
-			sql = GetSqlCommand(t);
 		}
 
-		public void Exec(SQLiteConnection conn)
-		{
-			Console.WriteLine(sql + System.Environment.NewLine);
-			using(var cmd = conn.CreateCommand())
-			{
-				cmd.CommandText = sql;
-				cmd.ExecuteNonQuery();
-			}
-		}
-
-		public async Task ExecAsync(SQLiteConnection conn)
-		{
-			Console.WriteLine(sql + System.Environment.NewLine);
-			using(var cmd = conn.CreateCommand())
-			{
-				cmd.CommandText = sql;
-				await cmd.ExecuteNonQueryAsync();
-			}
-		}
-
-		string GetSqlCommand(Type t)
+		protected override string GetSqlCommand(Type t)
 		{
 			return GetTableData(t);
 		}
