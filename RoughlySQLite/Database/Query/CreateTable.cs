@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 #if NET45
 using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
 using SQLiteException = System.Data.SQLite.SQLiteException;
+using SQLiteParameter = System.Data.SQLite.SQLiteParameter;
+using SQLiteCommand = System.Data.SQLite.SQLiteCommand;
 #else
 using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
 using SQLiteException = Mono.Data.Sqlite.SqliteException;
+using SQLiteParameter = Mono.Data.Sqlite.SqliteParameter;
+using SQLiteCommand = Mono.Data.Sqlite.SqliteCommand;
 #endif
 
 namespace RoughlySQLite
@@ -53,24 +57,14 @@ namespace RoughlySQLite
 			sql = GetSqlCommand(t);
 		}
 
-		public void Exec(SQLiteConnection conn)
+		protected override void SetQuery(SQLiteCommand command)
 		{
-			Console.WriteLine(sql + System.Environment.NewLine);
-			using(var cmd = conn.CreateCommand())
-			{
-				cmd.CommandText = sql;
-				cmd.ExecuteNonQuery();
-			}
+			command.CommandText = sql;
 		}
 
-		public async Task ExecAsync(SQLiteConnection conn)
+		protected override string GetQueryString()
 		{
-			Console.WriteLine(sql + System.Environment.NewLine);
-			using(var cmd = conn.CreateCommand())
-			{
-				cmd.CommandText = sql;
-				await cmd.ExecuteNonQueryAsync();
-			}
+			return sql;
 		}
 
 		string GetSqlCommand(Type t)

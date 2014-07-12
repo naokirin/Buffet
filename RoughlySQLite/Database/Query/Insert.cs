@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
 using SQLiteException = System.Data.SQLite.SQLiteException;
 using SQLiteParameter = System.Data.SQLite.SQLiteParameter;
+using SQLiteCommand = System.Data.SQLite.SQLiteCommand;
 #else
 using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
 using SQLiteException = Mono.Data.Sqlite.SqliteException;
 using SQLiteParameter = Mono.Data.Sqlite.SqliteParameter;
+using SQLiteCommand = Mono.Data.Sqlite.SqliteCommand;
 #endif
 
 namespace RoughlySQLite
@@ -54,30 +56,17 @@ namespace RoughlySQLite
 			Query = GetQuery(typeof(T), value);
 		}
 
-		public void Exec(SQLiteConnection conn)
+		protected override void SetQuery(SQLiteCommand command)
 		{
-			Console.WriteLine(Query.QueryString + System.Environment.NewLine);
-			using(var cmd = conn.CreateCommand())
-			{
-				cmd.CommandText = Query.QueryString;
-				cmd.CommandType = CommandType.Text;
-				Query.Parameters.ToList()
-					.ForEach(x => cmd.Parameters.Add(new SQLiteParameter(x.Value.Parameter, x.Value.ReplaceString)));
-				cmd.ExecuteNonQuery();
-			}
+			command.CommandText = Query.QueryString;
+			command.CommandType = CommandType.Text;
+			Query.Parameters.ToList()
+				.ForEach(x => command.Parameters.Add(new SQLiteParameter(x.Value.Parameter, x.Value.ReplaceString)));
 		}
 
-		public async Task ExecAsync(SQLiteConnection conn)
+		protected override string GetQueryString()
 		{
-			Console.WriteLine(Query.QueryString + System.Environment.NewLine);
-			using(var cmd = conn.CreateCommand())
-			{
-				cmd.CommandText = Query.QueryString;
-				cmd.CommandType = CommandType.Text;
-				Query.Parameters.ToList()
-					.ForEach(x => cmd.Parameters.Add(new SQLiteParameter(x.Value.Parameter, x.Value.ReplaceString)));
-				await cmd.ExecuteNonQueryAsync();
-			}
+			return Query.QueryString;
 		}
 
 		ParameterizedQuery GetQuery(Type t, T value)
