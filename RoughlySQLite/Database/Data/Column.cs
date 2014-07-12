@@ -7,6 +7,8 @@ namespace RoughlySQLite
 {
 	class Column
 	{
+		public IGetter Getter { get; private set; }
+
 		public string Name { get; private set; }
 
 		public Type ColumnType { get; private set; }
@@ -19,6 +21,8 @@ namespace RoughlySQLite
 
 		public Column(PropertyInfo prop)
 		{
+			Getter = prop.ToGetter();
+
 			var columnAttr = (ColumnAttribute)prop.GetCustomAttributes(typeof(ColumnAttribute), true).FirstOrDefault();
 			Name = columnAttr == null ? prop.Name : columnAttr.Name;
 

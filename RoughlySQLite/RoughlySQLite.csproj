@@ -74,6 +74,8 @@
     <Compile Include="Database\Attributes\SQLiteAttributeUtility.cs" />
     <Compile Include="Database\Query\Insert.cs" />
     <Compile Include="Database\Query\NonQeuryCommand.cs" />
+    <Compile Include="Database\Data\ValueTranslation.cs" />
+    <Compile Include="Database\Data\PropertyGetter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

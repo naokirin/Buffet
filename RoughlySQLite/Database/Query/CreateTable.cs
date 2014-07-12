@@ -45,64 +45,44 @@ namespace RoughlySQLite
 
 	class CreateTable : NonQeuryCommand
 	{
+		string sql = "";
+
+
 		public CreateTable(Type t) : base(t)
 		{
+			sql = GetSqlCommand(t);
 		}
 
-		protected override string GetSqlCommand(Type t)
+		public void Exec(SQLiteConnection conn)
+		{
+			Console.WriteLine(sql + System.Environment.NewLine);
+			using(var cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = sql;
+				cmd.ExecuteNonQuery();
+			}
+		}
+
+		public async Task ExecAsync(SQLiteConnection conn)
+		{
+			Console.WriteLine(sql + System.Environment.NewLine);
+			using(var cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = sql;
+				await cmd.ExecuteNonQueryAsync();
+			}
+		}
+
+		string GetSqlCommand(Type t)
 		{
 			return GetTableData(t);
 		}
 
 		string GetTableData(Type t)
 		{
-			var tableAttr = (TableAttribute)t.GetAttribute(typeof(TableAttribute));
-
-			TableName = tableAttr != null ? tableAttr.Name : TableType.Name;
-
-			var multiColumnPrimaryKeyAttr = (MultiColumnPrimaryKeyAttribute)t.GetAttribute(typeof(MultiColumnPrimaryKeyAttribute));
-			var multiColumnPrimaryKey = new SpecifiedMultiColumnPrimaryKey();
-			multiColumnPrimaryKey.Columns = multiColumnPrimaryKeyAttr != null ? multiColumnPrimaryKeyAttr.Columns : new List<string>();
-
-			var multiColumnForeignKeyAttrs = (MultiColumnForeignKeyAttribute[])t.GetAttributes(typeof(MultiColumnForeignKeyAttribute));
-			var multiColumnForeignKeys = new List<SpecifiedMultiColumnForeignKey>();
-			if (multiColumnForeignKeyAttrs != null)
-			{
-				multiColumnForeignKeyAttrs.ToList().ForEach(x =>
-				{
-					var key = new SpecifiedMultiColumnForeignKey();
-					var referencedTableAttr = (TableAttribute)x.ReferencedTableType.GetAttribute(typeof(TableAttribute));
-					key.ForeignTable = referencedTableAttr != null ? referencedTableAttr.Name : x.ReferencedTableType.Name;
-					key.ReferencedColumns = x.ReferencedColumns;
-					key.Columns = x.Columns;
-					key.OnDeleteAction = x.OnDeleteAction;
-					key.OnUpdateAction = x.OnUpdateAction;
-					multiColumnForeignKeys.Add(key);
-				});
-			}
-
-			var properties = from property in t.GetRuntimeProperties()
-			                where (property.GetMethod != null && property.GetMethod.IsPublic)
-			                    || (property.SetMethod != null && property.SetMethod.IsPublic)
-			                    || (property.GetMethod != null && property.GetMethod.IsStatic)
-			                    || (property.SetMethod != null && property.SetMethod.IsStatic)
-			                select property;
-
-			var columns = new List<Column>();
-			foreach(var property in properties)
-			{
-				var ignore = property.GetCustomAttributes(typeof(IgnoreAttribute), true).Any();
-
-				if (property.CanWrite && !ignore)
-				{
-					columns.Add(new Column(property));
-				}
-			}
-
-			var table = new Table(TableName, columns, multiColumnPrimaryKey, multiColumnForeignKeys);
-
+			var table = Table.GetTable(t);
 			return String.Format("CREATE TABLE IF NOT EXISTS {0}{1}{2};",
-				TableName, System.Environment.NewLine, GetColumnsQueryString(table));
+				table.TableName, System.Environment.NewLine, GetColumnsQueryString(table));
 		}
 
 		string GetColumnsQueryString(Table table)

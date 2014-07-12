@@ -11,64 +11,6 @@ using SQLiteException = Mono.Data.Sqlite.SqliteException;
 
 namespace RoughlySQLiteTest
 {
-	class OnlyPrimaryKeyTable
-	{
-		[PrimaryKey]
-		public string PKey { get; set; }
-	}
-
-	class AutoIncrementColumnTable
-	{
-		[PrimaryKey(IsAutoIncrement = true)]
-		public int PKey { get; set; }
-	}
-
-	class AutoIncrementColumnWithStringTable
-	{
-		[PrimaryKey(IsAutoIncrement = true)]
-		public string PKey { get; set; }
-	}
-
-	[MultiColumnPrimaryKey(new string[]{ "PKey1", "PKey2" })]
-	class MultiColumnPrimaryKeyTable
-	{
-		public string PKey1 { get; set; }
-
-		public string PKey2 { get; set; }
-	}
-
-	class InvalidMultiColumnPrimaryKeyTable
-	{
-		[PrimaryKey]
-		public string PKey1 { get; set; }
-
-		[PrimaryKey]
-		public string PKey2 { get; set; }
-	}
-
-	class SpecifiedForeignKeyTable
-	{
-		[ForeignKey(typeof(OnlyPrimaryKeyTable), "PKey")]
-		public string PKey { get; set; }
-	}
-
-	[MultiColumnForeignKey(new string[]{ "PKey1", "PKey2" }, typeof(MultiColumnPrimaryKeyTable), new string[] { "PKey1", "PKey2" })]
-	class SpecifiedMultiColumnForeignKeyTable
-	{
-		public string PKey1 { get; set; }
-		public string PKey2 { get; set; }
-	}
-
-	[MultiColumnForeignKey(new string[]{ "PKey1", "PKey2" }, typeof(MultiColumnPrimaryKeyTable), new string[] { "PKey1", "PKey2" })]
-	[MultiColumnForeignKey(new string[]{ "PKey3", "PKey4" }, typeof(MultiColumnPrimaryKeyTable), new string[] { "PKey1", "PKey2" })]
-	class SpecifiedMultiColumnForeignKeysTable
-	{
-		public string PKey1 { get; set; }
-		public string PKey2 { get; set; }
-		public string PKey3 { get; set; }
-		public string PKey4 { get; set; }
-	}
-
 	[TestFixture]
 	public class CreateTableTest
 	{

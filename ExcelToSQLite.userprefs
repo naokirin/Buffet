@@ -1,17 +1,26 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLite/Database/SqliteConnectionProvider.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLite/Database/Query/Insert.cs">
     <Files>
-      <File FileName="RoughlySQLite/Database/Query/CreateTable.cs" Line="5" Column="15" />
-      <File FileName="RoughlySQLite/Database/Query/Insert.cs" Line="2" Column="1" />
-      <File FileName="RoughlySQLite/Database/SqliteConnectionProvider.cs" Line="2" Column="17" />
-      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="120" Column="72" />
-      <File FileName="RoughlySQLite/packages.config" Line="7" Column="96" />
-      <File FileName="RoughlySQLiteTest/packages.config" Line="8" Column="96" />
+      <File FileName="RoughlySQLite/Database/Query/CreateTable.cs" Line="58" Column="4" />
+      <File FileName="RoughlySQLite/Database/Query/Insert.cs" Line="50" Column="36" />
+      <File FileName="RoughlySQLite/Database/Query/NonQeuryCommand.cs" Line="20" Column="13" />
+      <File FileName="RoughlySQLite/Database/SqliteConnectionProvider.cs" Line="8" Column="39" />
+      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="8" Column="46" />
+      <File FileName="RoughlySQLiteTest/DbTest.cs" Line="11" Column="27" />
+      <File FileName="RoughlySQLite/Database/Data/Table.cs" Line="29" Column="37" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="RoughlySQLiteTest" expanded="True">
+            <Node name="RoughlySQLiteTest" expanded="True">
+              <Node name="CreateTableTest" expanded="True">
+                <Node name="TestCreateAutoIncrementColumnTable" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
