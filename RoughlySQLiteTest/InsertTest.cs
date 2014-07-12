@@ -66,6 +66,16 @@ namespace RoughlySQLiteTest
 					new AutoIncrementColumnWithOthersTable{ TestColumn = "" }));
 			}
 		}
+
+		[Test]
+		public void TestInsertAsyncTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<OnlyPrimaryKeyTable>();
+				Assert.DoesNotThrow(() => connection.InsertAsync<OnlyPrimaryKeyTable>(new OnlyPrimaryKeyTable{ PKey = "" }).Wait());
+			}
+		}
 	}
 }
 

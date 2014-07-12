@@ -30,6 +30,19 @@ namespace RoughlySQLite
 				throw e;
 			}
 		}
+
+		public static async Task InsertAsync<T>(this SQLiteConnection conn, T value)
+		{
+			try
+			{
+				await new Insert<T>(value).ExecAsync(conn);
+			}
+			catch(SQLiteException e)
+			{
+				Console.WriteLine(e.Message);
+				throw e;
+			}
+		}
 	}
 
 	class Insert<T> : NonQeuryCommand
