@@ -112,4 +112,16 @@ namespace RoughlySQLiteTest
 	{
 		public byte[] Bytes { get; set; }
 	}
+
+	enum ColumnTestEnum
+	{
+		TypeA,
+		TypeB,
+		TypeC
+	}
+
+	class EnumColumnTable
+	{
+		public ColumnTestEnum Enum { get; set; }
+	}
 }

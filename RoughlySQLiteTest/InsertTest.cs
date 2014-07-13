@@ -116,6 +116,16 @@ namespace RoughlySQLiteTest
 				Assert.DoesNotThrow(() => connection.Insert<BlobColumnTable>(new BlobColumnTable{ Bytes = new byte[]{1, 1, 1} }));
 			}
 		}
+
+		[Test]
+		public void TestInsertEnum()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<EnumColumnTable>();
+				Assert.DoesNotThrow(() => connection.Insert<EnumColumnTable>(new EnumColumnTable {Enum = ColumnTestEnum.TypeA }));
+			}
+		}
 	}
 }
 
