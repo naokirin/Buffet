@@ -22,23 +22,23 @@ namespace RoughlySQLite
 			TableType = t;
 		}
 
-		public void Exec(SQLiteConnection conn)
+		public int Exec(SQLiteConnection conn)
 		{
 			Console.WriteLine(GetQueryString() + System.Environment.NewLine);
 			using(var cmd = conn.CreateCommand())
 			{
 				SetQuery(cmd);
-				cmd.ExecuteNonQuery();
+				return cmd.ExecuteNonQuery();
 			}
 		}
 
-		public async Task ExecAsync(SQLiteConnection conn)
+		public async Task<int> ExecAsync(SQLiteConnection conn)
 		{
 			Console.WriteLine(GetQueryString() + System.Environment.NewLine);
 			using(var cmd = conn.CreateCommand())
 			{
 				SetQuery(cmd);
-				await cmd.ExecuteNonQueryAsync();
+				return await cmd.ExecuteNonQueryAsync();
 			}
 		}
 

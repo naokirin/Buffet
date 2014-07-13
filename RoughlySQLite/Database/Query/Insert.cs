@@ -20,11 +20,11 @@ namespace RoughlySQLite
 {
 	public static class InsertExtension
 	{
-		public static void Insert<T>(this SQLiteConnection conn, T value)
+		public static int Insert<T>(this SQLiteConnection conn, T value)
 		{
 			try
 			{
-				new Insert<T>(value).Exec(conn);
+				return new Insert<T>(value).Exec(conn);
 			}
 			catch(SQLiteException e)
 			{
@@ -33,11 +33,11 @@ namespace RoughlySQLite
 			}
 		}
 
-		public static async Task InsertAsync<T>(this SQLiteConnection conn, T value)
+		public static async Task<int> InsertAsync<T>(this SQLiteConnection conn, T value)
 		{
 			try
 			{
-				await new Insert<T>(value).ExecAsync(conn);
+				return await new Insert<T>(value).ExecAsync(conn);
 			}
 			catch(SQLiteException e)
 			{

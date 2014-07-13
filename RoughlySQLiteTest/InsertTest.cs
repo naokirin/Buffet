@@ -76,6 +76,16 @@ namespace RoughlySQLiteTest
 				Assert.DoesNotThrow(() => connection.InsertAsync<OnlyPrimaryKeyTable>(new OnlyPrimaryKeyTable{ PKey = "" }).Wait());
 			}
 		}
+
+		[Test]
+		public void TestInsertRowCountTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<OnlyPrimaryKeyTable>();
+				Assert.That(connection.Insert<OnlyPrimaryKeyTable>(new OnlyPrimaryKeyTable{ PKey = "" }), Is.EqualTo(1));
+			}
+		}
 	}
 }
 
