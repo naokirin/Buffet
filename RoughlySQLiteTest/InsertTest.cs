@@ -9,8 +9,6 @@ using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
 using SQLiteException = Mono.Data.Sqlite.SqliteException;
 #endif
 
-using System.Diagnostics;
-
 namespace RoughlySQLiteTest
 {
 	public class InsertTest
