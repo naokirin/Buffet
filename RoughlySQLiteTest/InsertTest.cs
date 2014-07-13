@@ -86,6 +86,36 @@ namespace RoughlySQLiteTest
 				Assert.That(connection.Insert<OnlyPrimaryKeyTable>(new OnlyPrimaryKeyTable{ PKey = "" }), Is.EqualTo(1));
 			}
 		}
+
+		[Test]
+		public void TestInsertDateTime()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<DateTimeColumnTable>();
+				Assert.DoesNotThrow(() => connection.Insert<DateTimeColumnTable>(new DateTimeColumnTable{ DateTime = new System.DateTime(2014, 7, 1) }));
+			}
+		}
+
+		[Test]
+		public void TestInsertSerializableData()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<SerializedColumnTable>();
+				Assert.DoesNotThrow(() => connection.Insert<SerializedColumnTable>(new SerializedColumnTable{ Data = new SerializableData() }));
+			}
+		}
+			
+		[Test]
+		public void TestInsertBlob()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<BlobColumnTable>();
+				Assert.DoesNotThrow(() => connection.Insert<BlobColumnTable>(new BlobColumnTable{ Bytes = new byte[]{1, 1, 1} }));
+			}
+		}
 	}
 }
 

@@ -25,7 +25,7 @@ namespace RoughlySQLite
 			{
 				return SQLiteType.Integer;
 			}
-			else if (t == typeof(UInt32) || t == typeof(Int64) || t == typeof(DateTimeOffset) || t == typeof(TimeSpan))
+			else if (t == typeof(UInt32) || t == typeof(Int64))
 			{
 				return SQLiteType.Bigint;
 			}
@@ -33,17 +33,17 @@ namespace RoughlySQLite
 			{
 				return SQLiteType.Real;
 			}
-			else if (t == typeof(String) || t == typeof(Guid))
-			{
-				return SQLiteType.Text;
-			}
 			else if (t == typeof(DateTime))
 			{
 				return SQLiteType.DateTime;
 			}
-			else if (t == typeof(byte[]) || t.IsSerializable)
+			else if (t == typeof(byte[]))
 			{
 				return SQLiteType.Blob;
+			}
+			else if (t == typeof(String) || t == typeof(Guid) || t.IsSerializable)
+			{
+				return SQLiteType.Text;
 			}
 
 			throw new NotSupportedException("Unknown to translate " + t.FullName + " to SQLite type.");

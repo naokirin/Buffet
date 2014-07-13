@@ -1,23 +1,24 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLite/Database/Query/Insert.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLiteTest/InsertTest.cs">
     <Files>
-      <File FileName="RoughlySQLite/Database/Query/CreateTable.cs" Line="58" Column="4" />
-      <File FileName="RoughlySQLite/Database/Query/Insert.cs" Line="50" Column="36" />
-      <File FileName="RoughlySQLite/Database/Query/NonQeuryCommand.cs" Line="20" Column="13" />
-      <File FileName="RoughlySQLite/Database/SqliteConnectionProvider.cs" Line="8" Column="39" />
-      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="8" Column="46" />
-      <File FileName="RoughlySQLiteTest/DbTest.cs" Line="11" Column="27" />
-      <File FileName="RoughlySQLite/Database/Data/Table.cs" Line="29" Column="37" />
+      <File FileName="RoughlySQLite/Database/Query/CreateTable.cs" Line="7" Column="1" />
+      <File FileName="RoughlySQLite/Database/Query/Insert.cs" Line="67" Column="40" />
+      <File FileName="RoughlySQLite/Database/Query/NonQeuryCommand.cs" Line="41" Column="11" />
+      <File FileName="RoughlySQLite/Database/Data/ValueTranslation.cs" Line="25" Column="5" />
+      <File FileName="RoughlySQLite/Database/Data/TypeTranslation.cs" Line="44" Column="69" />
+      <File FileName="RoughlySQLite/Database/Query/ParameterizedQuery.cs" Line="16" Column="2" />
+      <File FileName="RoughlySQLiteTest/InsertTest.cs" Line="120" Column="5" />
+      <File FileName="RoughlySQLiteTest/DbTest.cs" Line="113" Column="36" />
+      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="136" Column="4" />
+      <File FileName="RoughlySQLite/Database/SqliteConnectionProvider.cs" Line="30" Column="17" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
           <Node name="RoughlySQLiteTest" expanded="True">
             <Node name="RoughlySQLiteTest" expanded="True">
-              <Node name="CreateTableTest" expanded="True">
-                <Node name="TestCreateAutoIncrementColumnTable" selected="True" />
-              </Node>
+              <Node name="InsertTest" expanded="True" />
             </Node>
           </Node>
         </State>

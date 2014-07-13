@@ -61,7 +61,11 @@ namespace RoughlySQLite
 			command.CommandText = Query.QueryString;
 			command.CommandType = CommandType.Text;
 			Query.Parameters.ToList()
-				.ForEach(x => command.Parameters.Add(new SQLiteParameter(x.Value.Parameter, x.Value.ReplaceString)));
+				.ForEach(x => {
+					var parameter = new SQLiteParameter(x.Key, x.Value.Replacing);
+					if (x.Value.Type == SQLiteType.Blob) parameter.DbType = DbType.Binary;
+					command.Parameters.Add(parameter);
+				});
 		}
 
 		protected override string GetQueryString()
@@ -81,7 +85,8 @@ namespace RoughlySQLite
 				if (x.SpecifiedPrimaryKey.IsAutoIncrement) return;
 				values.Add(new ParameterizedString {
 					Parameter= x.Name,
-					ReplaceString=x.Getter.GetValue(value).ToSQLiteValue(x.ColumnType)
+					Replacing=x.Getter.GetValue(value).ToSQLiteValue(x.ColumnType),
+					Type = x.ColumnType.ToSQLiteType()
 					});
 				});
 

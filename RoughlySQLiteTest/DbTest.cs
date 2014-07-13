@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using RoughlySQLite;
+using System;
 
 #if NET45
 using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
@@ -89,5 +90,26 @@ namespace RoughlySQLiteTest
 		public string PKey2 { get; set; }
 		public string PKey3 { get; set; }
 		public string PKey4 { get; set; }
+	}
+
+	class DateTimeColumnTable
+	{
+		public DateTime DateTime { get; set; }
+	}
+
+	[Serializable]
+	class SerializableData
+	{
+		public int Id = 1;
+		public string Str = "test";
+	}
+	class SerializedColumnTable
+	{
+		public SerializableData Data { get; set; }
+	}
+
+	class BlobColumnTable
+	{
+		public byte[] Bytes { get; set; }
 	}
 }

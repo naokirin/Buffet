@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 
 namespace RoughlySQLite
 {
 
-	public class ParameterizedString
+	class ParameterizedString
 	{
+		public SQLiteType Type { get; set; }
 		public string Parameter { get; set; }
-
-		public string ReplaceString { get; set; }
+		public object Replacing { get; set; }
 	}
 
-	public class ParameterizedQuery
+	class ParameterizedQuery
 	{
 		public Dictionary<string, ParameterizedString> Parameters { get; private set; }
 
