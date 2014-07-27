@@ -20,4 +20,7 @@ Global
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.ActiveCfg = Release|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = RoughlySQLite\RoughlySQLite.csproj
+	EndGlobalSection
 EndGlobal
