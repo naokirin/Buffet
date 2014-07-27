@@ -124,6 +124,26 @@ namespace RoughlySQLiteTest
 				Assert.DoesNotThrow(() => connection.Insert<EnumColumnTable>(new EnumColumnTable {Enum = ColumnTestEnum.TypeA }));
 			}
 		}
+
+		[Test]
+		public void TestInsertInCheckConstraintTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<CheckConstraintTable>();
+				Assert.DoesNotThrow(() => connection.Insert<CheckConstraintTable>(new CheckConstraintTable { ID = 1 }));
+			}
+		}
+
+		[Test]
+		public void TestFailedToInsertInCheckConstraintTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<CheckConstraintTable>();
+				Assert.Throws<SQLiteException>(() => connection.Insert<CheckConstraintTable>(new CheckConstraintTable { ID = 0 }));
+			}
+		}
 	}
 }
 

@@ -13,14 +13,17 @@ namespace RoughlySQLite
 
 		public SpecifiedMultiColumnPrimaryKey SpecifiedMultiColumnPrimaryKey { get; private set; }
 
+		public List<CheckConstraint> CheckConstraints { get; set; }
+
 		public List<SpecifiedMultiColumnForeignKey> SpecifiedMultiColumnForeignKeys { get; private set; }
 
-		public Table(string tableName, List<Column> columns, SpecifiedMultiColumnPrimaryKey multiColumnPrimaryKey, List<SpecifiedMultiColumnForeignKey> multiColumnForeignKeys)
+		public Table(string tableName, List<Column> columns, SpecifiedMultiColumnPrimaryKey multiColumnPrimaryKey, List<SpecifiedMultiColumnForeignKey> multiColumnForeignKeys, List<CheckConstraint> checks)
 		{
 			TableName = tableName;
 			Columns = columns;
 			SpecifiedMultiColumnPrimaryKey = multiColumnPrimaryKey;
 			SpecifiedMultiColumnForeignKeys = multiColumnForeignKeys;
+			CheckConstraints = checks;
 		}
 
 		public static Table GetTable(Type t)
@@ -50,6 +53,18 @@ namespace RoughlySQLite
 				});
 			}
 
+			var checkAttrs = (CheckAttribute[])t.GetAttributes(typeof(CheckAttribute));
+			var checks = new List<CheckConstraint>();
+			if (checkAttrs != null)
+			{
+				checkAttrs.ToList().ForEach(x =>
+				{
+					var check = new CheckConstraint();
+					check.Condition = x.Condition;
+					checks.Add(check);
+				});
+			}
+
 			var properties = from property in t.GetRuntimeProperties()
 					where (property.GetMethod != null && property.GetMethod.IsPublic)
 				|| (property.SetMethod != null && property.SetMethod.IsPublic)
@@ -68,7 +83,7 @@ namespace RoughlySQLite
 				}
 			}
 
-			return new Table(tableName, columns, multiColumnPrimaryKey, multiColumnForeignKeys);
+			return new Table(tableName, columns, multiColumnPrimaryKey, multiColumnForeignKeys, checks);
 		}
 	}
 }

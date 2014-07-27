@@ -124,4 +124,10 @@ namespace RoughlySQLiteTest
 	{
 		public ColumnTestEnum Enum { get; set; }
 	}
+
+	[Check("ID > 0")]
+	class CheckConstraintTable
+	{
+		public uint ID { get; set; }
+	}
 }

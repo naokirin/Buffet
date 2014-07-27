@@ -134,5 +134,15 @@ namespace RoughlySQLiteTest
 					() =>  connection.CreateTableAsync<OnlyPrimaryKeyTable>().Wait());
 			}
 		}
+
+		[Test]
+		public void TestCreateCheckConstraintTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				Assert.DoesNotThrow(
+					() => connection.CreateTable<CheckConstraintTable>());
+			}
+		}
 	}
 }

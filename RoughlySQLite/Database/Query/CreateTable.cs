@@ -98,6 +98,7 @@ namespace RoughlySQLite
 
 			columnQuery += GetPrimaryKeyQueryString(table);
 			columnQuery += GetForeignKeyQueryString(table);
+			columnQuery += GetCheckConstraintQueryString(table);
 
 			columnQuery += ")";
 
@@ -168,6 +169,24 @@ namespace RoughlySQLite
 					columnQuery += System.Environment.NewLine;
 				}
 				);
+			}
+
+			return columnQuery;
+		}
+
+		string GetCheckConstraintQueryString(Table table)
+		{
+			var columnQuery = "";
+
+			if (table.CheckConstraints != null && table.CheckConstraints.Any())
+			{
+				table.CheckConstraints.ForEach(condition =>
+				{
+					columnQuery += ", CHECK (";
+					columnQuery += condition.Condition;
+					columnQuery += ") ";
+					columnQuery += System.Environment.NewLine;
+				});
 			}
 
 			return columnQuery;
