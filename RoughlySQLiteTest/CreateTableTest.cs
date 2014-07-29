@@ -144,5 +144,25 @@ namespace RoughlySQLiteTest
 					() => connection.CreateTable<CheckConstraintTable>());
 			}
 		}
+
+		[Test]
+		public void TestUniqueColumnTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				Assert.DoesNotThrow(
+					() => connection.CreateTable<UniqueColumnTable>());
+			}
+		}
+
+		[Test]
+		public void TestMutliColumnUniqueColumnTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				Assert.DoesNotThrow(
+					() => connection.CreateTable<MultiColumnUniqueTable>());
+			}
+		}
 	}
 }

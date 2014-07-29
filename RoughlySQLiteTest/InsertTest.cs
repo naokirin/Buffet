@@ -144,6 +144,48 @@ namespace RoughlySQLiteTest
 				Assert.Throws<SQLiteException>(() => connection.Insert<CheckConstraintTable>(new CheckConstraintTable { ID = 0 }));
 			}
 		}
+
+		[Test]
+		public void TestInsertInUniqueColumnTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<UniqueColumnTable>();
+				Assert.DoesNotThrow(() => connection.Insert<UniqueColumnTable>(new UniqueColumnTable { Name = "John" }));
+			}
+		}
+
+		[Test]
+		public void TestFailedToInsertInUniqueColumnTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<UniqueColumnTable>();
+				Assert.DoesNotThrow(() => connection.Insert<UniqueColumnTable>(new UniqueColumnTable { Name = "John" }));
+				Assert.Throws<SQLiteException>(() => connection.Insert<UniqueColumnTable>(new UniqueColumnTable { Name = "John" }));
+			}
+		}
+
+		[Test]
+		public void TestInsertInMultiColumnUniqueTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<MultiColumnUniqueTable>();
+				Assert.DoesNotThrow(() => connection.Insert<MultiColumnUniqueTable>(new MultiColumnUniqueTable { FirstName = "John", LastName="Tacker" }));
+			}
+		}
+
+		[Test]
+		public void TestFailedToInsertInMutiColumnUniqueTable()
+		{
+			using(var connection = provider.GetOpenConnection())
+			{
+				connection.CreateTable<MultiColumnUniqueTable>();
+				Assert.DoesNotThrow(() => connection.Insert<MultiColumnUniqueTable>(new MultiColumnUniqueTable { FirstName = "John", LastName = "Tacker" }));
+				Assert.Throws<SQLiteException>(() => connection.Insert<MultiColumnUniqueTable>(new MultiColumnUniqueTable { FirstName = "John", LastName = "Tacker" }));
+			}
+		}
 	}
 }
 

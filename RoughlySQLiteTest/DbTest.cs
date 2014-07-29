@@ -130,4 +130,17 @@ namespace RoughlySQLiteTest
 	{
 		public uint ID { get; set; }
 	}
+
+	class UniqueColumnTable
+	{
+		[Unique]
+		public string Name { get; set; }
+	}
+
+	[MultiColumnUnique("idx", new []{ "FirstName ", "LastName DESC" })]
+	class MultiColumnUniqueTable
+	{
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+	}
 }

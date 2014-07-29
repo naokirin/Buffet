@@ -19,20 +19,22 @@ namespace RoughlySQLite
 
 		public SpecifiedForeignKey SpecifiedForeignKey { get; private set; }
 
+		public bool Unique { get; private set; }
+
 		public Column(PropertyInfo prop)
 		{
 			Getter = prop.ToGetter();
 
-			var columnAttr = (ColumnAttribute)prop.GetCustomAttributes(typeof(ColumnAttribute), true).FirstOrDefault();
+			var columnAttr = prop.GetCustomAttribute<ColumnAttribute>();
 			Name = columnAttr == null ? prop.Name : columnAttr.Name;
 
 			ColumnType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 
-			var notNullAttr = (NotNullAttribute)prop.GetCustomAttributes(typeof(NotNullAttribute), true).FirstOrDefault();
+			var notNullAttr = prop.GetCustomAttribute<NotNullAttribute>();
 			IsNullable = notNullAttr == null;
 
 			SpecifiedPrimaryKey = new SpecifiedPrimaryKey();
-			var primaryKeyAttr = (PrimaryKeyAttribute)prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).FirstOrDefault();
+			var primaryKeyAttr = prop.GetCustomAttribute<PrimaryKeyAttribute>();
 			SpecifiedPrimaryKey.IsPrimaryKey = primaryKeyAttr != null;
 			if (SpecifiedPrimaryKey.IsPrimaryKey)
 			{
@@ -43,7 +45,7 @@ namespace RoughlySQLite
 				SpecifiedPrimaryKey.IsAutoIncrement = false;
 			}
 
-			var foreignKeyAttr = (ForeignKeyAttribute)prop.GetCustomAttributes(typeof(ForeignKeyAttribute), true).FirstOrDefault();
+			var foreignKeyAttr = prop.GetCustomAttribute<ForeignKeyAttribute>();
 			if (foreignKeyAttr != null)
 			{
 				SpecifiedForeignKey = new SpecifiedForeignKey();
@@ -53,6 +55,9 @@ namespace RoughlySQLite
 				SpecifiedForeignKey.OnDeleteAction = foreignKeyAttr.OnDeleteAction;
 				SpecifiedForeignKey.OnUpdateAction = foreignKeyAttr.OnUpdateAction;
 			}
+
+			var uniqueAttr = prop.GetCustomAttribute<UniqueAttribute>();
+			Unique = uniqueAttr != null;
 		}
 	}
 }

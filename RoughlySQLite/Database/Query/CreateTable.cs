@@ -25,6 +25,7 @@ namespace RoughlySQLite
 			try
 			{
 				new CreateTable(typeof(T)).Exec(conn);
+				new CreateIndex(typeof(T)).Exec(conn);
 			}
 			catch(SQLiteException e)
 			{
@@ -38,6 +39,7 @@ namespace RoughlySQLite
 			try
 			{
 				await new CreateTable(typeof(T)).ExecAsync(conn);
+				await new CreateIndex(typeof(T)).ExecAsync(conn);
 			}
 			catch(SQLiteException e)
 			{
@@ -93,6 +95,7 @@ namespace RoughlySQLite
 				+ (column.IsNullable ? "" : " NOT NULL")
 				+ (column.SpecifiedPrimaryKey.IsPrimaryKey ? " PRIMARY KEY" : "")
 				+ (column.SpecifiedPrimaryKey.IsAutoIncrement ? " AUTOINCREMENT" : "")
+				+ (column.Unique ? " Unique" : "") 
 				+ System.Environment.NewLine;
 			});
 

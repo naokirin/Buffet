@@ -58,7 +58,6 @@
     <Compile Include="Database\Attributes\TableAttribute.cs" />
     <Compile Include="Database\Attributes\IndexAttribute.cs" />
     <Compile Include="Database\Attributes\ColumnAttribute.cs" />
-    <Compile Include="Database\Attributes\IndexedAttribute.cs" />
     <Compile Include="Database\Attributes\UniqueAttribute.cs" />
     <Compile Include="Database\Attributes\NotNullAttribute.cs" />
     <Compile Include="Database\Attributes\ForeignKeyAttribute.cs" />
@@ -79,6 +78,8 @@
     <Compile Include="Database\Attributes\IgnoreColumnAttribute.cs" />
     <Compile Include="Database\Attributes\CheckAttribute.cs" />
     <Compile Include="Database\Data\CheckConstraint.cs" />
+    <Compile Include="Database\Query\CreateIndex.cs" />
+    <Compile Include="Database\Data\Index.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

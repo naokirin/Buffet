@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 #if NET45
 using SQLiteConnection = System.Data.SQLite.SQLiteConnection;
@@ -24,7 +25,11 @@ namespace RoughlySQLite
 
 		public int Exec(SQLiteConnection conn)
 		{
-			Console.WriteLine(GetQueryString() + System.Environment.NewLine);
+			var sql = GetQueryString();
+			if (!sql.Any()) return 0;
+			#if DEBUG
+			Console.WriteLine(sql + System.Environment.NewLine);
+			#endif
 			using(var cmd = conn.CreateCommand())
 			{
 				SetQuery(cmd);
@@ -34,7 +39,11 @@ namespace RoughlySQLite
 
 		public async Task<int> ExecAsync(SQLiteConnection conn)
 		{
-			Console.WriteLine(GetQueryString() + System.Environment.NewLine);
+			var sql = GetQueryString();
+			if (!sql.Any()) return 0; 
+			#if DEBUG
+			Console.WriteLine(sql + System.Environment.NewLine);
+			#endif
 			using(var cmd = conn.CreateCommand())
 			{
 				SetQuery(cmd);
