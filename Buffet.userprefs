@@ -1,21 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLite/Database/Query/CreateTable.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CrocellTest/CrocellTest.cs">
     <Files>
-      <File FileName="RoughlySQLite/Database/Query/CreateTable.cs" Line="186" Column="40" />
-      <File FileName="RoughlySQLite/Database/Query/Insert.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Query/NonQeuryCommand.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Data/ValueTranslation.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Data/TypeTranslation.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Query/ParameterizedQuery.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLiteTest/InsertTest.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLiteTest/DbTest.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/SqliteConnectionProvider.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Data/CheckConstraint.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Data/ForeignKey.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Data/Table.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Attributes/CheckAttribute.cs" Line="1" Column="1" />
+      <File FileName="Crocell/Crocell.cs" Line="19" Column="28" />
+      <File FileName="Crocell/Attributes/ColumnAttribute.cs" Line="10" Column="32" />
+      <File FileName="Crocell/Attributes/IndexedColumnAttribute.cs" Line="1" Column="14" />
+      <File FileName="CrocellTest/CrocellTest.cs" Line="4" Column="2" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">

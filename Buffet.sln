@@ -5,12 +5,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoughlySQLite", "RoughlySQL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoughlySQLiteTest", "RoughlySQLiteTest\RoughlySQLiteTest.csproj", "{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocell", "Crocell\Crocell.csproj", "{FA94119D-0A23-4EA1-972D-AD997ED8906F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrocellTest", "CrocellTest\CrocellTest.csproj", "{7D7C894B-6033-433E-8813-7861ED008196}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D7C894B-6033-433E-8813-7861ED008196}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D7C894B-6033-433E-8813-7861ED008196}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D7C894B-6033-433E-8813-7861ED008196}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D7C894B-6033-433E-8813-7861ED008196}.Release|x86.Build.0 = Release|Any CPU
 		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.Build.0 = Debug|Any CPU
 		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Release|x86.ActiveCfg = Release|Any CPU
@@ -19,8 +27,14 @@ Global
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Debug|x86.Build.0 = Debug|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.ActiveCfg = Release|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.Build.0 = Release|x86
+		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Debug|x86.Build.0 = Debug|Any CPU
+		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = RoughlySQLite\RoughlySQLite.csproj
+		StartupItems = $0
+		$0.Item = RoughlySQLiteTest\RoughlySQLiteTest.csproj
+		$0.Item = CrocellTest\CrocellTest.csproj
 	EndGlobalSection
 EndGlobal
