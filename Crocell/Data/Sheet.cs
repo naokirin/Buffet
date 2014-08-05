@@ -8,11 +8,13 @@ namespace Crocell
 	class Sheet
 	{
 		public string Name { get; private set; }
+		public string DefinedColumn { get; private set; }
 		public List<Column> Columns { get; private set; }
 
-		public Sheet(string name, List<Column> columns)
+		public Sheet(string name, List<Column> columns, string definedColumn)
 		{
 			Name = name;
+			DefinedColumn = definedColumn;
 			Columns = columns;
 		}
 
@@ -20,6 +22,7 @@ namespace Crocell
 		{
 			var sheetAttr = (SheetAttribute)t.GetAttribute(typeof(SheetAttribute));
 			var sheetName = sheetAttr != null ? sheetAttr.Name : t.Name;
+			var definedColumn = sheetAttr != null ? sheetAttr.DefinedColumn : "";
 
 			var properties = from property in t.GetRuntimeProperties()
 					where (property.GetMethod != null && property.GetMethod.IsPublic)
@@ -39,7 +42,7 @@ namespace Crocell
 				}
 			}
 
-			return new Sheet(sheetName, columns);
+			return new Sheet(sheetName, columns, definedColumn);
 		}
 	}
 }

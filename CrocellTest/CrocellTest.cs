@@ -7,14 +7,14 @@ using System.Linq;
 
 namespace CrocellTest
 {
-	[Sheet("one_column")]
+	[Sheet("one_column", DefinedColumn="@start")]
 	class OneColumnSheet
 	{
 		[Column("column")]
 		public string Column { get; set; }
 	}
 
-	[Sheet("two_column")]
+	[Sheet("two_column", DefinedColumn="@start")]
 	class TwoColumnSheet
 	{
 		[Column("column1")]
@@ -42,9 +42,10 @@ namespace CrocellTest
 			using(var wb = new XLWorkbook())
 			{
 				var ws = wb.Worksheets.Add("one_column");
-				ws.Cell("A1").SetValue("column");
-				ws.Cell("A2").SetValue("1");
-				ws.Cell("A3").SetValue("2");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("column");
+				ws.Cell("B2").SetValue("1");
+				ws.Cell("B3").SetValue("2");
 
 				var data = wb.ReadSheet<OneColumnSheet>();
 				Assert.That(data[0].Column, Is.EqualTo("1"));
@@ -58,14 +59,15 @@ namespace CrocellTest
 			using(var wb = new XLWorkbook())
 			{
 				var ws = wb.Worksheets.Add("two_column");
-				ws.Cell("A2").SetValue("column1");
-				ws.Cell("B2").SetValue("Column2");
+				ws.Cell("A2").SetValue("@start");
+				ws.Cell("B2").SetValue("column1");
+				ws.Cell("C2").SetValue("Column2");
 
-				ws.Cell("A3").SetValue("1");
-				ws.Cell("B3").SetValue("b3");
+				ws.Cell("B3").SetValue("1");
+				ws.Cell("C3").SetValue("b3");
 
-				ws.Cell("A4").SetValue("2");
-				ws.Cell("B4").SetValue("b4");
+				ws.Cell("B4").SetValue("2");
+				ws.Cell("C4").SetValue("b4");
 
 				var data = wb.ReadSheet<TwoColumnSheet>();
 				Assert.That(data[0].Column, Is.EqualTo("1"));
