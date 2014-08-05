@@ -23,6 +23,12 @@ namespace CrocellTest
 		public string Column2 { get; set; }
 	}
 
+	[Sheet("comment_sheet", DefinedColumn="@start", StartingComments=new string[]{ "#" })]
+	class CommentSheet
+	{
+		public string Column { get; set; }
+	}
+
 	[TestFixture]
 	public class CrocellTest
 	{
@@ -75,6 +81,26 @@ namespace CrocellTest
 
 				Assert.That(data[1].Column, Is.EqualTo("2"));
 				Assert.That(data[1].Column2, Is.EqualTo("b4"));
+			}
+		}
+
+		[Test]
+		public void TestReadCommentSheet()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				var ws = wb.Worksheets.Add("comment_sheet");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("Column");
+
+				ws.Cell("A2").SetValue("#comment out");
+				ws.Cell("B2").SetValue("1");
+				ws.Cell("B3").SetValue("2");
+
+				var data = wb.ReadSheet<CommentSheet>();
+
+				Assert.That(data.Count, Is.EqualTo(1));
+				Assert.That(data[0].Column, Is.EqualTo("2"));
 			}
 		}
 	}

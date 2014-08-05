@@ -75,11 +75,11 @@
     <Compile Include="Database\Query\NonQeuryCommand.cs" />
     <Compile Include="Database\Data\ValueTranslation.cs" />
     <Compile Include="Database\Data\PropertyGetter.cs" />
-    <Compile Include="Database\Attributes\IgnoreColumnAttribute.cs" />
     <Compile Include="Database\Attributes\CheckAttribute.cs" />
     <Compile Include="Database\Data\CheckConstraint.cs" />
     <Compile Include="Database\Query\CreateIndex.cs" />
     <Compile Include="Database\Data\Index.cs" />
+    <Compile Include="Database\Attributes\IgnoredColumnAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

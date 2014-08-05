@@ -24,11 +24,11 @@ namespace Crocell
 			bool defined = false;
 			rows.ForEach(row =>
 			{
+				var firstCell = row.FirstCell();
+				var str = firstCell.GetString();
+				if (sheet.StartingComments.Any(str.StartsWith)) return;
 				if (!defined)
 				{
-					var firstCell = row.FirstCell();
-					var str = firstCell.GetString();
-
 					if (str != null && str == sheet.DefinedColumn)
 					{
 						row.Cells().Select(cell =>

@@ -91,7 +91,7 @@ namespace RoughlySQLite
 			var columns = new List<Column>();
 			foreach(var property in properties)
 			{
-				var ignore = property.GetCustomAttributes(typeof(IgnoreColumnAttribute), true).Any();
+				var ignore = property.GetCustomAttributes(typeof(IgnoredColumnAttribute), true).Any();
 
 				if (property.CanWrite && !ignore)
 				{

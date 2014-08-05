@@ -7,6 +7,7 @@ namespace Crocell
 	{
 		public string Name { get; set; }
 		public string DefinedColumn { get; set; }
+		public string[] StartingComments { get; set; }
 
 		public SheetAttribute(string name)
 		{

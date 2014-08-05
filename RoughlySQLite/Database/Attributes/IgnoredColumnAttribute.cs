@@ -4,7 +4,7 @@ namespace RoughlySQLite
 {
 
 	[AttributeUsage(AttributeTargets.Property)]
-	public class IgnoreColumnAttribute : Attribute
+	public class IgnoredColumnAttribute : Attribute
 	{
 	}
 }

@@ -9,13 +9,15 @@ namespace Crocell
 	{
 		public string Name { get; private set; }
 		public string DefinedColumn { get; private set; }
+		public List<string> StartingComments { get; private set; }
 		public List<Column> Columns { get; private set; }
 
-		public Sheet(string name, List<Column> columns, string definedColumn)
+		public Sheet(string name, List<Column> columns, string definedColumn, List<string> startingComments)
 		{
 			Name = name;
 			DefinedColumn = definedColumn;
 			Columns = columns;
+			StartingComments = startingComments;
 		}
 
 		public static Sheet GetSheet(Type t)
@@ -23,6 +25,7 @@ namespace Crocell
 			var sheetAttr = (SheetAttribute)t.GetAttribute(typeof(SheetAttribute));
 			var sheetName = sheetAttr != null ? sheetAttr.Name : t.Name;
 			var definedColumn = sheetAttr != null ? sheetAttr.DefinedColumn : "";
+			var startingComments = sheetAttr != null && sheetAttr.StartingComments != null ? sheetAttr.StartingComments.ToList() : new List<string>();
 
 			var properties = from property in t.GetRuntimeProperties()
 					where (property.GetMethod != null && property.GetMethod.IsPublic)
@@ -42,7 +45,7 @@ namespace Crocell
 				}
 			}
 
-			return new Sheet(sheetName, columns, definedColumn);
+			return new Sheet(sheetName, columns, definedColumn, startingComments);
 		}
 	}
 }
