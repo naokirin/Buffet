@@ -2,7 +2,7 @@
 
 namespace Crocell
 {
-	[AttributeUsage(AttributeTargets.Class)]
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple=true)]
 	public class SheetAttribute : Attribute
 	{
 		public string Name { get; set; }
