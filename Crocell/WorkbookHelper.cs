@@ -18,7 +18,7 @@ namespace Crocell
 			var rows = worksheet.Rows();
 			if (rows == null || !rows.Any()) return new List<T>();
 
-			var dict = new Dictionary<string, string>();
+			var dict = new Dictionary<string, Column>();
 			var data = new List<T>();
 
 			bool defined = false;
@@ -40,7 +40,7 @@ namespace Crocell
 						{
 							if (d.column != null)
 							{
-								dict.Add(d.index, d.column.AccessName);
+								dict.Add(d.index, d.column);
 							}
 						});
 						defined = true;
@@ -49,16 +49,25 @@ namespace Crocell
 				}
 
 				var obj = new T();
-				row.Cells().Where(x => x != null && dict.ContainsKey(x.Address.ColumnLetter))
-					.ForEach(cell =>
+
+				dict.ForEach(x => 
 				{
-					var pi = typeof(T).GetProperty(dict[cell.Address.ColumnLetter]);
+					var cell = row.Cells().FirstOrDefault(c => c.Address.ColumnLetter == x.Key);
+					if (cell != null || (cell == null && !x.Value.NotNull))
+					{
+						var column = x.Value;
+						var pi = typeof(T).GetProperty(column.AccessName);
 
-					// TODO: 正しい型で取得する
-					// TODO: 空のセルを許容する場合を考慮する
-					pi.SetValue(obj, cell.GetString());
-
+						// TODO: 正しい型で取得する
+						// TODO: 空のセルを許容する場合を考慮する
+						pi.SetValue(obj, cell.GetString());
+					}
+					else if (cell == null && x.Value.NotNull)
+					{
+						throw new NotAllowingNullException();
+					}
 				});
+
 				data.Add(obj);
 			});
 

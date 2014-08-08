@@ -50,11 +50,14 @@
     <Compile Include="Data\Column.cs" />
     <Compile Include="Data\PropertySetter.cs" />
     <Compile Include="Attributes\IgnoredColumnAttribute.cs" />
+    <Compile Include="Attributes\NotNullAttribute.cs" />
+    <Compile Include="Exception\NotAllowingNullException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Attributes\" />
     <Folder Include="Data\" />
+    <Folder Include="Exception\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
