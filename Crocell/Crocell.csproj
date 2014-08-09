@@ -53,6 +53,7 @@
     <Compile Include="Attributes\NotNullAttribute.cs" />
     <Compile Include="Exception\NotAllowingNullException.cs" />
     <Compile Include="Data\TypeTranslation.cs" />
+    <Compile Include="Exception\NotFoundSheetException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

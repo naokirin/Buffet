@@ -14,7 +14,10 @@ namespace Crocell
 			IXLWorksheet worksheet = null;
 			workbook.Worksheets.TryGetWorksheet(sheet.Name, out worksheet);
 
-			if (worksheet == null) return new List<T>();
+			if (worksheet == null)
+			{
+				throw new NotFoundSheetException(sheet.Name);
+			}
 
 			var rows = worksheet.Rows();
 			if (rows == null || !rows.Any()) return new List<T>();

@@ -50,6 +50,11 @@ namespace CrocellTest
 		public DateTime Time { get; set; }
 	}
 
+	[Sheet("not_found")]
+	class NotFoundSheet
+	{
+	}
+
 
 	[TestFixture]
 	public class CrocellTest
@@ -161,6 +166,16 @@ namespace CrocellTest
 				var data = wb.ReadSheet<DateTimeSheet>();
 				Assert.That(data[0].Time, Is.EqualTo(DateTime.Parse("2014/07/07 10:10:10")));
 				Assert.That(data[1].Time, Is.EqualTo(DateTime.Parse("2014/10/1")));
+			}
+		}
+
+		[Test]
+		public void TestFailedToReadNotFoundSheet()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				Assert.That(() => wb.ReadSheet<NotFoundSheet>(),
+					Throws.Exception.TypeOf<NotFoundSheetException>());
 			}
 		}
 	}
