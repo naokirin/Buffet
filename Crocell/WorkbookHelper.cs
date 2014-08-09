@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using ClosedXML.Excel;
@@ -61,14 +62,21 @@ namespace Crocell
 						if (x.Value.IndexedNames == null)
 						{
 							var pi = typeof(T).GetProperty(column.AccessName);
-							pi.SetValue(obj, cell.GetString());
+							pi.SetValue(obj, cell.GetCellData(column.ColumnType));
 						}
 						else
 						{
+							Type openedType = typeof(List<>);
+							Type closedType =
+								openedType.MakeGenericType(column.ColumnType);
+							var list = Activator.CreateInstance(closedType);
+							Type t = list.GetType();
+							MethodInfo addMethod = t.GetMethod("Add");
+
 							var pi = typeof(T).GetProperty(column.AccessName);
-							var value = (List<string>)pi.GetValue(obj);
-							if (value == null) value = new List<string>();
-							value.Add(cell.GetString());
+							var value = pi.GetValue(obj);
+							if (value == null) value = list;
+							addMethod.Invoke(value, new object[] { cell.GetCellData(column.ColumnType) });
 							pi.SetValue(obj, value);
 						}
 					}

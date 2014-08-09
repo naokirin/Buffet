@@ -44,6 +44,12 @@ namespace CrocellTest
 		public List<string> Column { get; set; }
 	}
 
+	[Sheet("date_time_sheet", DefinedColumn="@start")]
+	class DateTimeSheet
+	{
+		public DateTime Time { get; set; }
+	}
+
 
 	[TestFixture]
 	public class CrocellTest
@@ -138,6 +144,23 @@ namespace CrocellTest
 				Assert.That(data[0].Column[0], Is.EqualTo("0"));
 				Assert.That(data[0].Column[1], Is.EqualTo("1"));
 				Assert.That(data[0].Column[2], Is.EqualTo("2"));
+			}
+		}
+
+		[Test]
+		public void TestReadDateTimeSheet()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				var ws = wb.Worksheets.Add("date_time_sheet");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("Time");
+				ws.Cell("B2").SetValue("2014/07/07 10:10:10");
+				ws.Cell("B3").SetValue("2014/10/1");
+
+				var data = wb.ReadSheet<DateTimeSheet>();
+				Assert.That(data[0].Time, Is.EqualTo(DateTime.Parse("2014/07/07 10:10:10")));
+				Assert.That(data[1].Time, Is.EqualTo(DateTime.Parse("2014/10/1")));
 			}
 		}
 	}
