@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace Crocell
 {
@@ -8,8 +10,8 @@ namespace Crocell
 		public ISetter Setter { get; private set; }
 		public string Name { get; private set; }
 		public string AccessName { get; private set; }
-		public Type ColumnType { get; private set; }
 		public bool NotNull { get; private set; }
+		public List<string> IndexedNames { get; private set; }
 
 		public Column(PropertyInfo prop)
 		{
@@ -19,9 +21,13 @@ namespace Crocell
 			Name = columnAttr == null ? prop.Name : columnAttr.Name;
 			AccessName = prop.Name;
 
-			ColumnType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-
 			NotNull = prop.GetCustomAttribute<NotNullAttribute>() != null;
+
+			var indexedAttr = prop.GetCustomAttribute<IndexedColumnAttribute>();
+			if (indexedAttr != null)
+			{
+				IndexedNames = indexedAttr.Indexes.Select(x => Name + x).ToList();
+			}
 		}
 	}
 }

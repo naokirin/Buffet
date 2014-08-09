@@ -33,7 +33,9 @@ namespace Crocell
 					{
 						row.Cells().Select(cell =>
 						{
-							var column = sheet.Columns.Find(x => x.Name == cell.GetString());
+							var column = sheet.Columns.Find(x => 
+								(x.Name == cell.GetString() && x.IndexedNames == null)
+								|| (x.IndexedNames != null && x.IndexedNames.Contains(cell.GetString())));
 							var index = cell.Address.ColumnLetter;
 							return new { column, index };
 						}).ForEach(d =>
@@ -56,11 +58,19 @@ namespace Crocell
 					if (cell != null || (cell == null && !x.Value.NotNull))
 					{
 						var column = x.Value;
-						var pi = typeof(T).GetProperty(column.AccessName);
-
-						// TODO: 正しい型で取得する
-						// TODO: 空のセルを許容する場合を考慮する
-						pi.SetValue(obj, cell.GetString());
+						if (x.Value.IndexedNames == null)
+						{
+							var pi = typeof(T).GetProperty(column.AccessName);
+							pi.SetValue(obj, cell.GetString());
+						}
+						else
+						{
+							var pi = typeof(T).GetProperty(column.AccessName);
+							var value = (List<string>)pi.GetValue(obj);
+							if (value == null) value = new List<string>();
+							value.Add(cell.GetString());
+							pi.SetValue(obj, value);
+						}
 					}
 					else if (cell == null && x.Value.NotNull)
 					{

@@ -3,7 +3,10 @@ using System;
 using ClosedXML.Excel;
 using Crocell;
 using System.IO;
+
 using System.Linq;
+using System.Collections.Generic;
+
 
 namespace CrocellTest
 {
@@ -28,6 +31,19 @@ namespace CrocellTest
 	{
 		public string Column { get; set; }
 	}
+
+	[Sheet("indexed_column_sheet", DefinedColumn="@start")]
+	class IndexedColumnSheet
+	{
+		public static List<string> Indexed()
+		{
+			return Enumerable.Range(0, 3).Select(x => x.ToString()).ToList();
+		}
+
+		[IndexedColumn("column", typeof(IndexedColumnSheet), "Indexed")]
+		public List<string> Column { get; set; }
+	}
+
 
 	[TestFixture]
 	public class CrocellTest
@@ -101,6 +117,27 @@ namespace CrocellTest
 
 				Assert.That(data.Count, Is.EqualTo(1));
 				Assert.That(data[0].Column, Is.EqualTo("2"));
+			}
+		}
+
+		[Test]
+		public void TestReadIndexedColumnSheet()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				var ws = wb.Worksheets.Add("indexed_column_sheet");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("column0");
+				ws.Cell("B2").SetValue("0");
+				ws.Cell("C1").SetValue("column1");
+				ws.Cell("C2").SetValue("1");
+				ws.Cell("D1").SetValue("column2");
+				ws.Cell("D2").SetValue("2");
+
+				var data = wb.ReadSheet<IndexedColumnSheet>();
+				Assert.That(data[0].Column[0], Is.EqualTo("0"));
+				Assert.That(data[0].Column[1], Is.EqualTo("1"));
+				Assert.That(data[0].Column[2], Is.EqualTo("2"));
 			}
 		}
 	}
