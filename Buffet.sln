@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoughlySQLite", "RoughlySQLite\RoughlySQLite.csproj", "{BA532401-E0B1-48C9-AA8F-E355B8CC569E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoughlySQLiteTest", "RoughlySQLiteTest\RoughlySQLiteTest.csproj", "{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}"
@@ -9,32 +11,41 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocell", "Crocell\Crocell.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrocellTest", "CrocellTest\CrocellTest.csproj", "{7D7C894B-6033-433E-8813-7861ED008196}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{85D18A91-F5A3-4ECB-B4CD-648F905A76AB}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7D7C894B-6033-433E-8813-7861ED008196}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7D7C894B-6033-433E-8813-7861ED008196}.Debug|x86.Build.0 = Debug|Any CPU
-		{7D7C894B-6033-433E-8813-7861ED008196}.Release|x86.ActiveCfg = Release|Any CPU
-		{7D7C894B-6033-433E-8813-7861ED008196}.Release|x86.Build.0 = Release|Any CPU
-		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.Build.0 = Debug|Any CPU
-		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Release|x86.ActiveCfg = Release|Any CPU
-		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Release|x86.Build.0 = Release|Any CPU
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Debug|x86.ActiveCfg = Debug|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Debug|x86.Build.0 = Debug|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.ActiveCfg = Release|x86
 		{BA532401-E0B1-48C9-AA8F-E355B8CC569E}.Release|x86.Build.0 = Release|x86
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Debug|x86.Build.0 = Debug|Any CPU
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F7C5A90-6C51-4B43-9C62-886CEF854EBD}.Release|x86.Build.0 = Release|Any CPU
 		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Debug|x86.Build.0 = Debug|Any CPU
 		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Release|x86.ActiveCfg = Release|Any CPU
 		{FA94119D-0A23-4EA1-972D-AD997ED8906F}.Release|x86.Build.0 = Release|Any CPU
+		{7D7C894B-6033-433E-8813-7861ED008196}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D7C894B-6033-433E-8813-7861ED008196}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D7C894B-6033-433E-8813-7861ED008196}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D7C894B-6033-433E-8813-7861ED008196}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItems = $0
-		$0.Item = RoughlySQLiteTest\RoughlySQLiteTest.csproj
 		$0.Item = CrocellTest\CrocellTest.csproj
 	EndGlobalSection
 EndGlobal
