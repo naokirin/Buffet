@@ -22,7 +22,7 @@ namespace Crocell
 			var rows = worksheet.Rows();
 			if (rows == null || !rows.Any()) return new List<T>();
 
-			var dict = new Dictionary<string, Column>();
+			var dict = new Dictionary<string, Tuple<string, Column>>();
 			var data = new List<T>();
 
 			bool defined = false;
@@ -41,12 +41,12 @@ namespace Crocell
 								(x.Name == cell.GetString() && x.IndexedNames == null)
 								|| (x.IndexedNames != null && x.IndexedNames.Contains(cell.GetString())));
 							var index = cell.Address.ColumnLetter;
-							return new { column, index };
+							return new { column, name=cell.GetString(), index };
 						}).ForEach(d =>
 						{
 							if (d.column != null)
 							{
-								dict.Add(d.index, d.column);
+								dict.Add(d.index, Tuple.Create(d.name, d.column));
 							}
 						});
 						defined = true;
@@ -58,20 +58,20 @@ namespace Crocell
 
 				dict.ForEach(x => 
 				{
+					var column = x.Value.Item2;
 					var cell = row.Cells().FirstOrDefault(c => c.Address.ColumnLetter == x.Key);
-					if (cell != null || (cell == null && !x.Value.NotNull))
+					if (cell != null || (cell == null && !column.NotNull))
 					{
-						var column = x.Value;
-						if (x.Value.IndexedNames == null)
+						if (column.IndexedNames == null)
 						{
 							var pi = typeof(T).GetProperty(column.AccessName);
 							pi.SetValue(obj, cell.GetCellData(column.ColumnType));
 						}
 						else
 						{
-							Type openedType = typeof(List<>);
+							Type openedType = typeof(Dictionary<,>);
 							Type closedType =
-								openedType.MakeGenericType(column.ColumnType);
+								openedType.MakeGenericType(new []{typeof(string), column.ColumnType});
 							var list = Activator.CreateInstance(closedType);
 							Type t = list.GetType();
 							MethodInfo addMethod = t.GetMethod("Add");
@@ -79,11 +79,11 @@ namespace Crocell
 							var pi = typeof(T).GetProperty(column.AccessName);
 							var value = pi.GetValue(obj);
 							if (value == null) value = list;
-							addMethod.Invoke(value, new object[] { cell.GetCellData(column.ColumnType) });
+							addMethod.Invoke(value, new [] { x.Value.Item1, cell.GetCellData(column.ColumnType) });
 							pi.SetValue(obj, value);
 						}
 					}
-					else if (cell == null && x.Value.NotNull)
+					else if (cell == null && column.NotNull)
 					{
 						throw new NotAllowingNullException();
 					}

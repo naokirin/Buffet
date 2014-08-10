@@ -41,7 +41,7 @@ namespace CrocellTest
 		}
 
 		[IndexedColumn("column", typeof(IndexedColumnSheet), "Indexed")]
-		public List<string> Column { get; set; }
+		public Dictionary<string, string> Column { get; set; }
 	}
 
 	[Sheet("date_time_sheet", DefinedColumn="@start")]
@@ -146,9 +146,9 @@ namespace CrocellTest
 				ws.Cell("D2").SetValue("2");
 
 				var data = wb.ReadSheet<IndexedColumnSheet>();
-				Assert.That(data[0].Column[0], Is.EqualTo("0"));
-				Assert.That(data[0].Column[1], Is.EqualTo("1"));
-				Assert.That(data[0].Column[2], Is.EqualTo("2"));
+				Assert.That(data[0].Column["column0"], Is.EqualTo("0"));
+				Assert.That(data[0].Column["column1"], Is.EqualTo("1"));
+				Assert.That(data[0].Column["column2"], Is.EqualTo("2"));
 			}
 		}
 
