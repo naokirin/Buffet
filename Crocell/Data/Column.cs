@@ -13,10 +13,14 @@ namespace Crocell
 		public Type ColumnType { get; private set; }
 		public bool NotNull { get; private set; }
 		public List<string> IndexedNames { get; private set; }
+		public bool IsRowNumber { get; private set; }
 
 		public Column(PropertyInfo prop)
 		{
 			Setter = prop.ToSetter();
+
+			var rowNumberAttr = prop.GetCustomAttribute<RowNumberAttribute>();
+			IsRowNumber = rowNumberAttr != null;
 
 			var columnAttr = prop.GetCustomAttribute<ColumnAttribute>();
 			Name = columnAttr == null ? prop.Name : columnAttr.Name;

@@ -55,6 +55,14 @@ namespace CrocellTest
 	{
 	}
 
+	[Sheet("row_numbers", DefinedColumn="@start")]
+	class RowNumberSheet
+	{
+		[RowNumber]
+		public int RowNumber { get; set; }
+		public int Data { get; set; }
+	}
+
 
 	[TestFixture]
 	public class CrocellTest
@@ -176,6 +184,25 @@ namespace CrocellTest
 			{
 				Assert.That(() => wb.ReadSheet<NotFoundSheet>(),
 					Throws.Exception.TypeOf<NotFoundSheetException>());
+			}
+		}
+
+		[Test]
+		public void TestRowNumberSheet()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				var ws = wb.Worksheets.Add("row_numbers");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("Data");
+				ws.Cell("B2").SetValue("1");
+				ws.Cell("B3").SetValue("2");
+
+				var data = wb.ReadSheet<RowNumberSheet>();
+				Assert.That(data[0].Data, Is.EqualTo(1));
+				Assert.That(data[0].RowNumber, Is.EqualTo(2));
+				Assert.That(data[1].Data, Is.EqualTo(2));
+				Assert.That(data[1].RowNumber, Is.EqualTo(3));
 			}
 		}
 	}

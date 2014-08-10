@@ -52,15 +52,15 @@ namespace Crocell
 			switch(type)
 			{
 			case CellType.Boolean:
-				return cell.GetBoolean();
+				return Convert.ChangeType(cell.GetBoolean(), t);
 			case CellType.DateTime:
-				return cell.GetDateTime();
+				return Convert.ChangeType(cell.GetDateTime(), t);
 			case CellType.Double:
-				return cell.GetDouble();
+				return Convert.ChangeType(cell.GetDouble(), t);
 			case CellType.String:
-				return cell.GetString();
+				return Convert.ChangeType(cell.GetString(), t);
 			case CellType.TimeSpan:
-				return cell.GetTimeSpan();
+				return Convert.ChangeType(cell.GetTimeSpan(), t);
 			}
 
 			return null;

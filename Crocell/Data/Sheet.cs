@@ -37,9 +37,9 @@ namespace Crocell
 			var columns = new List<Column>();
 			foreach(var property in properties)
 			{
-				var ignore = property.GetCustomAttributes(typeof(IgnoredColumnAttribute), true).Any();
+				var ignore = property.GetCustomAttribute(typeof(IgnoredColumnAttribute), true);
 
-				if (property.CanWrite && !ignore)
+				if (property.CanWrite && ignore == null)
 				{
 					columns.Add(new Column(property));
 				}

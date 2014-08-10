@@ -37,7 +37,7 @@ namespace Crocell
 					{
 						row.Cells().Select(cell =>
 						{
-							var column = sheet.Columns.Find(x => 
+							var column = sheet.Columns.Where(x => !x.IsRowNumber).ToList().Find(x =>
 								(x.Name == cell.GetString() && x.IndexedNames == null)
 								|| (x.IndexedNames != null && x.IndexedNames.Contains(cell.GetString())));
 							var index = cell.Address.ColumnLetter;
@@ -89,6 +89,11 @@ namespace Crocell
 					}
 				});
 
+				sheet.Columns.Where(x => x.IsRowNumber).ForEach(x =>
+				{
+					var pi = typeof(T).GetProperty(x.AccessName);
+					pi.SetValue(obj, row.RowNumber());
+				});
 				data.Add(obj);
 			});
 
