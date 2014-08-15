@@ -11,6 +11,7 @@ namespace RoughlySQLite
 		Bigint,
 		Real,
 		Text,
+		Serialized,
 		DateTime,
 		Blob
 	}
@@ -20,8 +21,8 @@ namespace RoughlySQLite
 		public static SQLiteType ToSQLiteType(this Type t)
 		{
 			if (t == typeof(Boolean) || t == typeof(Byte) || t == typeof(UInt16)
-			   || t == typeof(SByte) || t == typeof(Int16) || t == typeof(Int32)
-			   || t.IsEnum)
+			    || t == typeof(SByte) || t == typeof(Int16) || t == typeof(Int32)
+			    || t.IsEnum)
 			{
 				return SQLiteType.Integer;
 			}
@@ -41,9 +42,13 @@ namespace RoughlySQLite
 			{
 				return SQLiteType.Blob;
 			}
-			else if (t == typeof(String) || t == typeof(Guid) || t.IsSerializable)
+			else if (t == typeof(String) || t == typeof(Guid))
 			{
 				return SQLiteType.Text;
+			}
+			else if (t.IsSerializable)
+			{
+				return SQLiteType.Serialized;
 			}
 
 			throw new NotSupportedException("Unknown to translate " + t.FullName + " to SQLite type.");
@@ -60,6 +65,7 @@ namespace RoughlySQLite
 			case SQLiteType.Real:
 				return "REAL";
 			case SQLiteType.Text:
+			case SQLiteType.Serialized:
 				return "TEXT";
 			case SQLiteType.DateTime:
 				return "DATETIME";

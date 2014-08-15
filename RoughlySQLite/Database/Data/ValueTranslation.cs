@@ -10,7 +10,7 @@ namespace RoughlySQLite
 		{
 			var type = t.ToSQLiteType();
 
-			if (type == SQLiteType.Text && t.IsSerializable)
+			if (type == SQLiteType.Serialized)
 			{
 				return Serialize(value);
 			}
