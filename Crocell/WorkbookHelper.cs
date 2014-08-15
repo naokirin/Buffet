@@ -60,7 +60,7 @@ namespace Crocell
 				{
 					var column = x.Value.Item2;
 					var cell = row.Cells().FirstOrDefault(c => c.Address.ColumnLetter == x.Key);
-					if (cell != null || (cell == null && !column.NotNull))
+					if (cell != null)
 					{
 						if (column.IndexedNames == null)
 						{

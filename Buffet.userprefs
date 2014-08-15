@@ -1,29 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Crocell/Attributes/IndexedColumnAttribute.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Crocell/WorkbookHelper.cs">
     <Files>
-      <File FileName="Crocell/WorkbookHelper.cs" Line="50" Column="50" />
-      <File FileName="Crocell/Attributes/ColumnAttribute.cs" Line="32" Column="32" />
-      <File FileName="Crocell/Attributes/SheetAttribute.cs" Line="60" Column="60" />
-      <File FileName="CrocellTest/CrocellTest.cs" Line="36" Column="36" />
-      <File FileName="Crocell/Attributes/AttributeHelper.cs" Line="1" Column="1" />
-      <File FileName="Crocell/Data/Sheet.cs" Line="5" Column="5" />
-      <File FileName="Crocell/Data/Column.cs" Line="59" Column="59" />
-      <File FileName="Crocell/Data/PropertySetter.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLite/Database/Attributes/IgnoredColumnAttribute.cs" Line="37" Column="37" />
-      <File FileName="Crocell/Attributes/IndexedColumnAttribute.cs" Line="14" Column="14" />
+      <File FileName="Crocell/WorkbookHelper.cs" Line="40" Column="40" />
+      <File FileName="CrocellTest/CrocellTest.cs" Line="47" Column="47" />
+      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="1" Column="1" />
+      <File FileName="RoughlySQLiteTest/InsertTest.cs" Line="4" Column="4" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True">
-          <Node name="CrocellTest" expanded="True">
-            <Node name="CrocellTest" expanded="True">
-              <Node name="CrocellTest" expanded="True">
-                <Node name="TestReadIndexedColumnSheet" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

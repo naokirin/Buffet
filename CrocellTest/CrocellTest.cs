@@ -205,6 +205,20 @@ namespace CrocellTest
 				Assert.That(data[1].RowNumber, Is.EqualTo(3));
 			}
 		}
+
+		[Test]
+		public void TestEmptyCell()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				var ws = wb.Worksheets.Add("one_column");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("column");
+				ws.Cell("A2").SetValue("a");
+
+				Assert.DoesNotThrow(() => wb.ReadSheet<OneColumnSheet>());
+			}
+		}
 	}
 }
 
