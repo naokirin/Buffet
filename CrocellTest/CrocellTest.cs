@@ -63,6 +63,19 @@ namespace CrocellTest
 		public int Data { get; set; }
 	}
 
+	[Sheet("allowed_empty", DefinedColumn="@start")]
+	class AllowedEmptySheet
+	{
+		[AllowedEmpty]
+		public int Data { get; set; }
+	}
+
+	[Sheet("not_allowed_empty", DefinedColumn="@start")]
+	class NotAllowedEmptySheet
+	{
+		public int Data { get; set; }
+	}
+
 
 	[TestFixture]
 	public class CrocellTest
@@ -207,16 +220,31 @@ namespace CrocellTest
 		}
 
 		[Test]
-		public void TestEmptyCell()
+		public void TestAllowedEmptyCell()
 		{
 			using(var wb = new XLWorkbook())
 			{
-				var ws = wb.Worksheets.Add("one_column");
+				var ws = wb.Worksheets.Add("allowed_empty");
 				ws.Cell("A1").SetValue("@start");
-				ws.Cell("B1").SetValue("column");
+				ws.Cell("B1").SetValue("Data");
 				ws.Cell("A2").SetValue("a");
 
-				Assert.DoesNotThrow(() => wb.ReadSheet<OneColumnSheet>());
+				Assert.DoesNotThrow(() => wb.ReadSheet<AllowedEmptySheet>());
+			}
+		}
+
+		[Test]
+		public void TestNotAllowedEmptyCell()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				var ws = wb.Worksheets.Add("not_allowed_empty");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("Data");
+				ws.Cell("A2").SetValue("a");
+
+				Assert.That(() => wb.ReadSheet<NotAllowedEmptySheet>(),
+					Throws.Exception.TypeOf<NotAllowedEmptyException>());
 			}
 		}
 	}

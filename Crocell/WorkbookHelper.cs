@@ -83,9 +83,9 @@ namespace Crocell
 							pi.SetValue(obj, value);
 						}
 					}
-					else if (cell == null && column.NotNull)
+					else if (cell == null && column.NotAllowedEmpty)
 					{
-						throw new NotAllowingNullException();
+						throw new NotAllowedEmptyException();
 					}
 				});
 

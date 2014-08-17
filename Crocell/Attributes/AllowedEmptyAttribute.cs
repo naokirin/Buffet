@@ -3,7 +3,7 @@
 namespace Crocell
 {
 	[AttributeUsage(AttributeTargets.Property)]
-	public class NotNullAttribute : Attribute
+	public class AllowedEmptyAttribute : Attribute
 	{
 	}
 }

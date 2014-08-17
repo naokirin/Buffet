@@ -50,11 +50,11 @@
     <Compile Include="Data\Column.cs" />
     <Compile Include="Data\PropertySetter.cs" />
     <Compile Include="Attributes\IgnoredColumnAttribute.cs" />
-    <Compile Include="Attributes\NotNullAttribute.cs" />
-    <Compile Include="Exception\NotAllowingNullException.cs" />
     <Compile Include="Data\TypeTranslation.cs" />
     <Compile Include="Exception\NotFoundSheetException.cs" />
     <Compile Include="Attributes\RowNumberAttribute.cs" />
+    <Compile Include="Exception\NotAllowedEmptyException.cs" />
+    <Compile Include="Attributes\AllowedEmptyAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
