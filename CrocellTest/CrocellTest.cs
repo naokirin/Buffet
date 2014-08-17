@@ -244,7 +244,9 @@ namespace CrocellTest
 				ws.Cell("A2").SetValue("a");
 
 				Assert.That(() => wb.ReadSheet<NotAllowedEmptySheet>(),
-					Throws.Exception.TypeOf<NotAllowedEmptyException>());
+					Throws.Exception.TypeOf<NotAllowedEmptyException>()
+					.And.Property("ColumnLetter").EqualTo("B")
+					.And.Property("RowNumber").EqualTo(2));
 			}
 		}
 	}

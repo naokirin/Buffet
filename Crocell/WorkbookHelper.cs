@@ -85,7 +85,7 @@ namespace Crocell
 					}
 					else if (cell == null && column.NotAllowedEmpty)
 					{
-						throw new NotAllowedEmptyException();
+						throw new NotAllowedEmptyException(x.Key, row.RowNumber());
 					}
 				});
 
