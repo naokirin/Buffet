@@ -4,6 +4,10 @@ Excelに定義されたテーブルデータをSQLiteに変換することを目
 
 このライブラリはCrocellとRoughlySQLiteの2つのプロジェクトで構成されています。
 
+CrocellによりExcelシートからデータを取得、それをSQLiteデータベースに取り込むことで、Excelでは管理しにくいシートやファイルをまたいだ横断的なデータの検索を効率的に行えるようになることを目的としています。
+
+各ライブラリの詳細な使用方法はCrocellTestやRoughlySQLiteTestのプロジェクトに含まれているテストコードを参照してください。
+
 ## Crocell
 
 CrocellはExcelからデータを取得することを目的としたライブラリです。
@@ -72,13 +76,6 @@ using(var connection = provider.GetOpenConnection())
 ```
 
 これによりSQLiteのデータベースを簡単に生成することができます。
-
-## Buffetについて
-
-BuffetはCrocellによりExcelシートからデータを取得、それをSQLiteデータベースに取り込むことで、Excelでは管理しにくいシートやファイルをまたいだ横断的なデータの検索を効率的に行えるようになることを目的としています。
-
-各ライブラリの詳細な使用方法はCrocellTestやRoughlySQLiteTestのプロジェクトに含まれているテストコードを参照してください。
-
 
 ## Monoでの動作
 
