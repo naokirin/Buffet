@@ -1,15 +1,27 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Crocell/WorkbookHelper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RoughlySQLiteTest/DbTest.cs">
     <Files>
       <File FileName="Crocell/WorkbookHelper.cs" Line="1" Column="1" />
-      <File FileName="CrocellTest/CrocellTest.cs" Line="1" Column="1" />
-      <File FileName="Crocell/Data/Column.cs" Line="72" Column="72" />
-      <File FileName="Crocell/Exception/NotAllowedEmptyException.cs" Line="19" Column="19" />
+      <File FileName="CrocellTest/CrocellTest.cs" Line="29" Column="29" />
+      <File FileName="Crocell/Data/Column.cs" Line="1" Column="1" />
+      <File FileName="Crocell/Exception/NotAllowedEmptyException.cs" Line="1" Column="1" />
+      <File FileName="Crocell/Data/TypeTranslation.cs" Line="1" Column="1" />
+      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="47" Column="47" />
+      <File FileName="RoughlySQLiteTest/DbTest.cs" Line="4" Column="4" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="CrocellTest" expanded="True">
+            <Node name="CrocellTest" expanded="True">
+              <Node name="CrocellTest" expanded="True">
+                <Node name="TestEnumValueColumn" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+          <Node name="RoughlySQLiteTest" expanded="True" />
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

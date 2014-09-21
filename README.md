@@ -78,3 +78,14 @@ using(var connection = provider.GetOpenConnection())
 BuffetはCrocellによりExcelシートからデータを取得、それをSQLiteデータベースに取り込むことで、Excelでは管理しにくいシートやファイルをまたいだ横断的なデータの検索を効率的に行えるようになることを目的としています。
 
 各ライブラリの詳細な使用方法はCrocellTestやRoughlySQLiteTestのプロジェクトに含まれているテストコードを参照してください。
+
+
+## Monoでの動作
+
+MonoではCrocellが利用しているClosedXMLがファイルを読み込む際に正しく動作しないようです。
+
+## .NET Frameworkでの動作
+
+.NET Framework4.5以上でなければ動作しません。
+.NET Frameworkで利用する際には、windowsブランチを参考にしてください。
+基本的には、"NET45"をシンボルとして追加すれば、動作するはずです。
