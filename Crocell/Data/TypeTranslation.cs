@@ -10,14 +10,19 @@ namespace Crocell
 		Double,
 		DateTime,
 		String,
-		TimeSpan
+		TimeSpan,
+		Enum,
 	}
 
 	static class TypeTranslation
 	{
 		public static CellType ToCellType(this Type t)
 		{
-			if (t == typeof(Boolean))
+			if (t.IsEnum)
+			{
+				return CellType.Enum;
+			}
+			else if (t == typeof(Boolean))
 			{
 				return CellType.Boolean;
 			}
@@ -51,6 +56,8 @@ namespace Crocell
 
 			switch(type)
 			{
+			case CellType.Enum:
+				return Enum.Parse(t, cell.GetString());
 			case CellType.Boolean:
 				return Convert.ChangeType(cell.GetBoolean(), t);
 			case CellType.DateTime:

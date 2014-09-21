@@ -76,6 +76,17 @@ namespace CrocellTest
 		public int Data { get; set; }
 	}
 
+	enum DataKind
+	{
+		Foo,
+		Bar,
+	}
+	[Sheet("enum_value_column", DefinedColumn="@start")]
+	class EnumValueColumnSheet
+	{
+		public DataKind Kind { get; set; }
+	}
+
 
 	[TestFixture]
 	public class CrocellTest
@@ -247,6 +258,23 @@ namespace CrocellTest
 					Throws.Exception.TypeOf<NotAllowedEmptyException>()
 					.And.Property("ColumnLetter").EqualTo("B")
 					.And.Property("RowNumber").EqualTo(2));
+			}
+		}
+
+		[Test]
+		public void TestEnumValueColumn()
+		{
+			using(var wb = new XLWorkbook())
+			{
+				var ws = wb.Worksheets.Add("enum_value_column");
+				ws.Cell("A1").SetValue("@start");
+				ws.Cell("B1").SetValue("Kind");
+				ws.Cell("B2").SetValue("Foo");
+				ws.Cell("B3").SetValue("Bar");
+
+				var data = wb.ReadSheet<EnumValueColumnSheet>();
+				Assert.That(data[0].Kind, Is.EqualTo(DataKind.Foo));
+				Assert.That(data[1].Kind, Is.EqualTo(DataKind.Bar));
 			}
 		}
 	}

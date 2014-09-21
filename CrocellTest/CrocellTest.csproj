@@ -32,14 +32,14 @@
     <Reference Include="DocumentFormat.OpenXml">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
-    <Reference Include="ClosedXML">
-      <HintPath>..\packages\ClosedXML.0.73.0\lib\net40-client\ClosedXML.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML">
+      <HintPath>..\packages\ClosedXML.0.75.0\lib\net40-client\ClosedXML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +50,7 @@
     <ProjectReference Include="..\Crocell\Crocell.csproj">
       <Project>{FA94119D-0A23-4EA1-972D-AD997ED8906F}</Project>
       <Name>Crocell</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

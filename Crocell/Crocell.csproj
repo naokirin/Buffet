@@ -32,12 +32,12 @@
     <Reference Include="DocumentFormat.OpenXml">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
-    <Reference Include="ClosedXML">
-      <HintPath>..\packages\ClosedXML.0.73.0\lib\net40-client\ClosedXML.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="System.Xml" />
+    <Reference Include="ClosedXML">
+      <HintPath>..\packages\ClosedXML.0.75.0\lib\net40-client\ClosedXML.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

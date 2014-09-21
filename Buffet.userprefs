@@ -2,10 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Crocell/WorkbookHelper.cs">
     <Files>
-      <File FileName="Crocell/WorkbookHelper.cs" Line="40" Column="40" />
-      <File FileName="CrocellTest/CrocellTest.cs" Line="47" Column="47" />
-      <File FileName="RoughlySQLiteTest/CreateTableTest.cs" Line="1" Column="1" />
-      <File FileName="RoughlySQLiteTest/InsertTest.cs" Line="4" Column="4" />
+      <File FileName="Crocell/WorkbookHelper.cs" Line="1" Column="1" />
+      <File FileName="CrocellTest/CrocellTest.cs" Line="1" Column="1" />
+      <File FileName="Crocell/Data/Column.cs" Line="72" Column="72" />
+      <File FileName="Crocell/Exception/NotAllowedEmptyException.cs" Line="19" Column="19" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
