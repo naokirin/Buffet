@@ -1,5 +1,8 @@
 # Buffet
 
+* ```master```, Visual Studio 2015 Preview: 
+[![Build status](https://ci.appveyor.com/api/projects/status/4jdmivn89dmtnjvd/branch/master?svg=true)](https://ci.appveyor.com/project/naokirin/buffet/branch/master)
+
 Excelに定義されたテーブルデータをSQLiteに変換することを目的としたライブラリです。
 
 このライブラリはCrocellとRoughlySQLiteの2つのプロジェクトで構成されています。
